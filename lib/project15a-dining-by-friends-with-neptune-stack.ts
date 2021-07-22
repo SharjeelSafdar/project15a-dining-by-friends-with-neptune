@@ -1,5 +1,7 @@
 import * as cdk from "@aws-cdk/core";
 import * as cognito from "@aws-cdk/aws-cognito";
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as neptune from "@aws-cdk/aws-neptune";
 import * as appsync from "@aws-cdk/aws-appsync";
 import * as events from "@aws-cdk/aws-events";
 import * as eventTargets from "@aws-cdk/aws-events-targets";
@@ -58,6 +60,23 @@ export class P15aGraphQlApiStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, "P15aUserPoolDomain", {
       value: userPoolDomain.domainName,
+    });
+
+    /* ********************************************************* */
+    /* ************ Neptune DB Cluster and Instance ************ */
+    /* ********************************************************* */
+    const vpc = ec2.Vpc.fromLookup(this, "P15aDefaultVpc", {
+      isDefault: true,
+    });
+
+    const cluster = new neptune.DatabaseCluster(this, "P15aNeptuneCluster", {
+      dbClusterName: "P15a-Neptune-Cluster",
+      vpc,
+      vpcSubnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE }),
+      instanceType: neptune.InstanceType.T3_MEDIUM,
+      engineVersion: neptune.EngineVersion.V1_0_4_1,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      deletionProtection: false,
     });
 
     /* ******************************************************** */

@@ -248,7 +248,7 @@
     "@aws-cdk/custom-resources" "1.115.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-ec2@1.115.0":
+"@aws-cdk/aws-ec2@1.115.0", "@aws-cdk/aws-ec2@^1.115.0":
   version "1.115.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ec2/-/aws-ec2-1.115.0.tgz#a908ae4889b2ba3c90eb082f11bde107ec5c08e3"
   integrity sha512-u/UkleFEbzxJzjpu1w5z0gj1cu3+w3yAMaqfR/D9etHsyF4uTtkshuiETmGrBVAdOddaUFQWB3i1wjwfcvyxsg==
@@ -494,6 +494,17 @@
     "@aws-cdk/aws-iam" "1.115.0"
     "@aws-cdk/aws-kms" "1.115.0"
     "@aws-cdk/aws-s3-assets" "1.115.0"
+    "@aws-cdk/core" "1.115.0"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-neptune@^1.115.0":
+  version "1.115.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-neptune/-/aws-neptune-1.115.0.tgz#78408afdcd3858982a4d730ba0b12439fe4f5a3b"
+  integrity sha512-Dc/tc1vD2ELePZYKj6Q+IWh6xF6n/Jtlmij7pgxZLOAyy6qnvceSqHv2Gnj7ahUy2HDhm4fUZWCaHdwT+DfiLw==
+  dependencies:
+    "@aws-cdk/aws-ec2" "1.115.0"
+    "@aws-cdk/aws-iam" "1.115.0"
+    "@aws-cdk/aws-kms" "1.115.0"
     "@aws-cdk/core" "1.115.0"
     constructs "^3.3.69"
 

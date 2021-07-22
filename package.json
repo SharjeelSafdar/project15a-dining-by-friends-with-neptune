@@ -23,9 +23,11 @@
   "dependencies": {
     "@aws-cdk/aws-appsync": "^1.115.0",
     "@aws-cdk/aws-cognito": "^1.115.0",
+    "@aws-cdk/aws-ec2": "^1.115.0",
     "@aws-cdk/aws-events": "^1.115.0",
     "@aws-cdk/aws-events-targets": "^1.115.0",
     "@aws-cdk/aws-lambda": "^1.115.0",
+    "@aws-cdk/aws-neptune": "^1.115.0",
     "@aws-cdk/core": "1.115.0",
     "@types/aws-lambda": "^8.10.80",
     "source-map-support": "^0.5.16"
