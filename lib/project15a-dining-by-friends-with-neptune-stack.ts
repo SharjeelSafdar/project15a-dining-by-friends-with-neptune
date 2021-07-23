@@ -65,19 +65,40 @@ export class P15aGraphQlApiStack extends cdk.Stack {
     /* ********************************************************* */
     /* ************ Neptune DB Cluster and Instance ************ */
     /* ********************************************************* */
-    const vpc = ec2.Vpc.fromLookup(this, "P15aDefaultVpc", {
-      isDefault: true,
+    const vpc = new ec2.Vpc(this, "P15aVpc", {
+      maxAzs: 2,
+      subnetConfiguration: [
+        {
+          name: "Ingress",
+          subnetType: ec2.SubnetType.ISOLATED,
+          cidrMask: 24,
+        },
+      ],
     });
+
+    const securityGroup = new ec2.SecurityGroup(this, "P15aSecurityGroup", {
+      vpc,
+      securityGroupName: "P15aSecurityGroup",
+      description: "Security group for Neptune DB",
+      allowAllOutbound: true,
+    });
+    securityGroup.addIngressRule(
+      securityGroup,
+      ec2.Port.tcp(8182),
+      "Rule for accessing NeptuneDB instance."
+    );
 
     const cluster = new neptune.DatabaseCluster(this, "P15aNeptuneCluster", {
       dbClusterName: "P15a-Neptune-Cluster",
       vpc,
-      vpcSubnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE }),
+      vpcSubnets: vpc.selectSubnets({ subnetType: ec2.SubnetType.ISOLATED }),
+      securityGroups: [securityGroup],
       instanceType: neptune.InstanceType.T3_MEDIUM,
       engineVersion: neptune.EngineVersion.V1_0_4_1,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       deletionProtection: false,
     });
+    cluster.connections.allowDefaultPortFromAnyIpv4("Open to the world");
 
     /* ******************************************************** */
     /* *************** Create New Person Lambda *************** */
@@ -87,11 +108,23 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset("lambdaFns/newPerson"),
       handler: "index.handler",
+      memorySize: 1024,
+      vpc,
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.ISOLATED,
+      },
+      securityGroups: [securityGroup],
+      environment: {
+        NEPTUNE_READER: cluster.clusterReadEndpoint.socketAddress,
+        NEPTUNE_WRITER: cluster.clusterEndpoint.socketAddress,
+      },
     });
 
     userPool.addTrigger(
       cognito.UserPoolOperation.POST_CONFIRMATION,
       newPersonLambda
     );
+
+    cdk.Tags.of(this).add("Project", "P15A-Dining-By-Friends-Neptune");
   }
 }
