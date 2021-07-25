@@ -3,12 +3,12 @@ type Person {
   firstName: String
   lastName: String
   username: String!
-  email: AWSEmail!
+  email: String!
 }
 
 input NewPerson {
   username: String!
-  email: AWSEmail!
+  email: String!
   firstName: String
   lastName: String
   cityId: ID!
@@ -68,43 +68,47 @@ input NewReviewRating {
   reviewId: ID!
 }
 
+type EventBridgeReponse {
+  result: String!
+}
+
 type Query {
   getPerson(id: ID!): Person
   getFriends(personId: ID!): [Person!]
   getFriendsOfFriends(personId: ID!): [Person!]
   findPathBetweenPeople(person1Id: ID!, person2Id: ID!): String
   highestRatedRestaurantByCuisine(personId: ID!, cuisineIds: [ID!]!): Restaurant
-  highestRatedRestaurants(personId: ID!): [Restaurant]!
-  newestRestaurantReviews(restaurantId: ID!): [Review]!
-  restaurantsByFriendsRecommendation(personId: ID!): [Restaurant]!
-  restaurantsByFriendsReviewRatingss(personId: ID!): [Restaurant]!
+  highestRatedRestaurants(personId: ID!): [Restaurant!]
+  newestRestaurantReviews(restaurantId: ID!): [Review!]
+  restaurantsByFriendsRecommendation(personId: ID!): [Restaurant!]
+  restaurantsByFriendsReviewRatingss(personId: ID!): [Restaurant!]
   restaurantsRatedOrReviewedByFriendsinXDays(
     personId: ID!
     numDays: Int! = 10
-  ): [Restaurant]!
+  ): [Restaurant!]
 }
 
 type Mutation {
-  addPerson(newPerson: NewPerson!): Person
-  addUpdateFirstName(personId: ID!, firstName: String!): String
-  addUpdateLastName(personId: ID!, lastName: String!): String
-  deletePerson(id: ID!): String
-  addCity(name: String!, stateId: ID!): City
-  updateCityName(id: ID!, newName: String!): City
-  deleteCity(id: ID!): String
-  addState(name: String!): State
-  updateStateName(id: ID!, newName: String!): State
-  deleteState(id: ID!): String
-  addCuisine(name: String!): Cuisine
-  updateCuisineName(id: ID!, newName: String!): Cuisine
-  deleteCuisine(id: ID!): String
-  addRestaurant(newRestaurant: NewRestaurant!): Restaurant
-  updateRestaurantName(id: ID!, newName: String!): Restaurant
-  updateRestaurantAddress(id: ID!, newAddress: String!): Restaurant
-  deleteRestaurant(id: ID): String
-  addReview(newReview: NewReview!): Review
-  addReviewRating(newReviewRating: NewReviewRating!): ReviewRating
-  addFriendsEdge(fromId: ID!, toId: ID!): String
+  addPerson(newPerson: NewPerson!): EventBridgeReponse
+  addUpdateFirstName(personId: ID!, firstName: String!): EventBridgeReponse
+  addUpdateLastName(personId: ID!, lastName: String!): EventBridgeReponse
+  deletePerson(id: ID!): EventBridgeReponse
+  addCity(name: String!, stateId: ID!): EventBridgeReponse
+  updateCityName(id: ID!, newName: String!): EventBridgeReponse
+  deleteCity(id: ID!): EventBridgeReponse
+  addState(name: String!): EventBridgeReponse
+  updateStateName(id: ID!, newName: String!): EventBridgeReponse
+  deleteState(id: ID!): EventBridgeReponse
+  addCuisine(name: String!): EventBridgeReponse
+  updateCuisineName(id: ID!, newName: String!): EventBridgeReponse
+  deleteCuisine(id: ID!): EventBridgeReponse
+  addRestaurant(newRestaurant: NewRestaurant!): EventBridgeReponse
+  updateRestaurantName(id: ID!, newName: String!): EventBridgeReponse
+  updateRestaurantAddress(id: ID!, newAddress: String!): EventBridgeReponse
+  deleteRestaurant(id: ID): EventBridgeReponse
+  addReview(newReview: NewReview!): EventBridgeReponse
+  addReviewRating(newReviewRating: NewReviewRating!): EventBridgeReponse
+  addFriendsEdge(fromId: ID!, toId: ID!): EventBridgeReponse
 }
 
 type schema {
