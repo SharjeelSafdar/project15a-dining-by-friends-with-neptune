@@ -5,9 +5,29 @@ export type Handler = EventBridgeHandler<string, Details, any>;
 type NewPerson = {
   username: string;
   email: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   cityId: string;
+};
+
+type NewRestaurant = {
+  name: string;
+  address: string;
+  cityId: string;
+  cuisineId: string;
+};
+
+type NewReview = {
+  rating: number;
+  body: string;
+  personId: string;
+  restaurantId: string;
+};
+
+type NewReviewRating = {
+  thumbsUp: boolean;
+  personId: string;
+  reviewId: string;
 };
 
 export type Details = {
@@ -16,6 +36,23 @@ export type Details = {
   name: string;
   cityId: string;
   stateId: string;
+  personId: string;
+  firstName: string;
+  lastName: string;
+  newName: string;
+  cuisineId: string;
+  newRestaurant: NewRestaurant;
+  restaurantId: string;
+  newAddress: string;
+  newReview: NewReview;
+  createdAt: number;
+  reviewId: string;
+  newReviewRating: NewReviewRating;
+  reviewDate: number;
+  reviewRatingId: string;
+  fromId: string;
+  toId: string;
+  friendsEdgeId: string;
 };
 
 export enum MutationType {
@@ -37,6 +74,9 @@ export enum MutationType {
   UPDATE_RESTAURANT_ADDRESS = "updateRestaurantAddress",
   DELETE_RESTAURANT = "deleteRestaurant",
   ADD_REVIEW = "addReview",
+  DELETE_REVIEW = "deleteReview",
   ADD_REVIEW_RATING = "addReviewRating",
+  DELETE_REVIEW_RATING = "deleteReviewRating",
   ADD_FRIENDS_EDGE = "addFriendsEdge",
+  DELETE_FRIENDS_EDGE = "deleteFriendsEdge",
 }

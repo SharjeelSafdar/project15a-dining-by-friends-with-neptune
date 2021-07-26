@@ -19,7 +19,8 @@ export const handler: Handler = async event => {
     g = createGraphTraversalSource(conn);
   }
 
-  if (await idAlreadyExists(g, event.detail)) {
+  // If this query adds a new vertex, check if already exists.
+  if (event.detail.id && (await idAlreadyExists(g, event.detail))) {
     return { result: "Id already exists. No need to run the query." };
   }
 

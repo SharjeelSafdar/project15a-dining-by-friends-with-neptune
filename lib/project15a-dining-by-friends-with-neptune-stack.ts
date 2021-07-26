@@ -200,12 +200,54 @@ export class P15aGraphQlApiStack extends cdk.Stack {
     );
     events.EventBus.grantAllPutEvents(httpEventBridgeDS);
 
-    const addPersonArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newPerson\\\": {\\\"username\\\": \\\"$ctx.args.newPerson.username\\\", \\\"email\\\": \\\"$ctx.args.newPerson.email\\\", \\\"firstName\\\": \\\"$ctx.args.newPerson.firstName\\\", \\\"lastName\\\": \\\"$ctx.args.newPerson.lastName\\\", \\\"cityId\\\": \\\"$ctx.args.newPerson.cityId\\\"}`;
+    const addPersonArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newPerson\\\": { \\\"username\\\": \\\"$ctx.args.newPerson.username\\\", \\\"email\\\": \\\"$ctx.args.newPerson.email\\\", \\\"firstName\\\": \\\"$ctx.args.newPerson.firstName\\\", \\\"lastName\\\": \\\"$ctx.args.newPerson.lastName\\\", \\\"cityId\\\": \\\"$ctx.args.newPerson.cityId\\\" }`;
     httpEventBridgeDS.createResolver({
       typeName: "Mutation",
       fieldName: MutationType.ADD_PERSON,
       requestMappingTemplate: appsync.MappingTemplate.fromString(
         requestTemplate(addPersonArgs, MutationType.ADD_PERSON)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addUpdateFirstNameArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"firstName\\\": \\\"$ctx.args.firstName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_UPDATE_FIRST_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(
+          addUpdateFirstNameArgs,
+          MutationType.ADD_UPDATE_FIRST_NAME
+        )
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addUpdateLastNameArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"lastName\\\": \\\"$ctx.args.lastName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_UPDATE_LAST_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(
+          addUpdateLastNameArgs,
+          MutationType.ADD_UPDATE_LAST_NAME
+        )
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deletePersonArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_PERSON,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deletePersonArgs, MutationType.DELETE_PERSON)
       ),
       responseMappingTemplate: appsync.MappingTemplate.fromString(
         responseTemplate()
@@ -224,12 +266,225 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       ),
     });
 
+    const updateStateNameArgs = `\\\"stateId\\\": \\\"$ctx.args.stateId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.UPDATE_STATE_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(updateStateNameArgs, MutationType.UPDATE_STATE_NAME)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteStateArgs = `\\\"stateId\\\": \\\"$ctx.args.stateId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_STATE,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteStateArgs, MutationType.DELETE_STATE)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
     const addCityArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\", \\\"stateId\\\": \\\"$ctx.args.stateId\\\"`;
     httpEventBridgeDS.createResolver({
       typeName: "Mutation",
       fieldName: MutationType.ADD_CITY,
       requestMappingTemplate: appsync.MappingTemplate.fromString(
         requestTemplate(addCityArgs, MutationType.ADD_CITY)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const updateCityNameArgs = `\\\"cityId\\\": \\\"$ctx.args.cityId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.UPDATE_CITY_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(updateCityNameArgs, MutationType.UPDATE_CITY_NAME)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteCityArgs = `\\\"cityId\\\": \\\"$ctx.args.cityId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_CITY,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteCityArgs, MutationType.DELETE_CITY)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addCuisineArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_CUISINE,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(addCuisineArgs, MutationType.ADD_CUISINE)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const updateCuisineNameArgs = `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.UPDATE_CUISINE_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(updateCuisineNameArgs, MutationType.UPDATE_CUISINE_NAME)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteCuisineArgs = `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_CUISINE,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteCuisineArgs, MutationType.DELETE_CUISINE)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addRestaurantArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newRestaurant\\\": { \\\"name\\\": \\\"$ctx.args.newRestaurant.name\\\", \\\"address\\\": \\\"$ctx.args.newRestaurant.address\\\", \\\"cityId\\\": \\\"$ctx.args.newRestaurant.cityId\\\", \\\"cuisineId\\\": \\\"$ctx.args.newRestaurant.cuisineId\\\" }`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_RESTAURANT,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(addRestaurantArgs, MutationType.ADD_RESTAURANT)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const updateRestaurantNameArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.UPDATE_RESTAURANT_NAME,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(
+          updateRestaurantNameArgs,
+          MutationType.UPDATE_RESTAURANT_NAME
+        )
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const updateRestaurantAddressArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newAddress\\\": \\\"$ctx.args.newAddress\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.UPDATE_RESTAURANT_ADDRESS,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(
+          updateRestaurantAddressArgs,
+          MutationType.UPDATE_RESTAURANT_ADDRESS
+        )
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteRestaurantArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_RESTAURANT,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteRestaurantArgs, MutationType.DELETE_RESTAURANT)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addReviewArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"createdAt\\\": \\\"$util.time.nowEpochSeconds()\\\", \\\"newReview\\\": { \\\"rating\\\": \\\"$ctx.args.newReview.rating\\\", \\\"body\\\": \\\"$ctx.args.newReview.body\\\", \\\"personId\\\": \\\"$ctx.args.newReview.personId\\\", \\\"restaurantId\\\": \\\"$ctx.args.newReview.restaurantId\\\" }`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_REVIEW,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(addReviewArgs, MutationType.ADD_REVIEW)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteReviewArgs = `\\\"reviewId\\\": \\\"$ctx.args.reviewId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_REVIEW,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteReviewArgs, MutationType.DELETE_REVIEW)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addReviewRatingArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"reviewDate\\\": \\\"$util.time.nowEpochSeconds()\\\", \\\"newReviewRating\\\": { \\\"thumbsUp\\\": \\\"$ctx.args.newReviewRating.thumbsUp\\\", \\\"reviewId\\\": \\\"$ctx.args.newReviewRating.reviewId\\\", \\\"personId\\\": \\\"$ctx.args.newReviewRating.personId\\\" }`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_REVIEW_RATING,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(addReviewRatingArgs, MutationType.ADD_REVIEW_RATING)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteReviewRatingArgs = `\\\"reviewRatingId\\\": \\\"$ctx.args.reviewRatingId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_REVIEW_RATING,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(
+          deleteReviewRatingArgs,
+          MutationType.DELETE_REVIEW_RATING
+        )
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const addFriendsEdgeArgs = `\\\"fromId\\\": \\\"$ctx.args.fromId\\\", \\\"toId\\\": \\\"$ctx.args.toId\\\", \\\"id\\\": \\\"$util.autoId()\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.ADD_FRIENDS_EDGE,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(addFriendsEdgeArgs, MutationType.ADD_FRIENDS_EDGE)
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        responseTemplate()
+      ),
+    });
+
+    const deleteFriendsEdgeArgs = `\\\"friendsEdgeId\\\": \\\"$ctx.args.friendsEdgeId\\\"`;
+    httpEventBridgeDS.createResolver({
+      typeName: "Mutation",
+      fieldName: MutationType.DELETE_FRIENDS_EDGE,
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        requestTemplate(deleteFriendsEdgeArgs, MutationType.DELETE_FRIENDS_EDGE)
       ),
       responseMappingTemplate: appsync.MappingTemplate.fromString(
         responseTemplate()
@@ -288,8 +543,11 @@ export class P15aGraphQlApiStack extends cdk.Stack {
           MutationType.UPDATE_RESTAURANT_ADDRESS,
           MutationType.DELETE_RESTAURANT,
           MutationType.ADD_REVIEW,
+          MutationType.DELETE_REVIEW,
           MutationType.ADD_REVIEW_RATING,
+          MutationType.DELETE_REVIEW_RATING,
           MutationType.ADD_FRIENDS_EDGE,
+          MutationType.DELETE_FRIENDS_EDGE,
         ],
       },
       targets: [new eventTargets.LambdaFunction(appSyncMutationLambda)],
@@ -318,6 +576,9 @@ enum MutationType {
   UPDATE_RESTAURANT_ADDRESS = "updateRestaurantAddress",
   DELETE_RESTAURANT = "deleteRestaurant",
   ADD_REVIEW = "addReview",
+  DELETE_REVIEW = "deleteReview",
   ADD_REVIEW_RATING = "addReviewRating",
+  DELETE_REVIEW_RATING = "deleteReviewRating",
   ADD_FRIENDS_EDGE = "addFriendsEdge",
+  DELETE_FRIENDS_EDGE = "deleteFriendsEdge",
 }
