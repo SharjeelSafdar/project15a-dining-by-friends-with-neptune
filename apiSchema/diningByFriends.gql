@@ -4,6 +4,7 @@ type Person {
   lastName: String!
   username: String!
   email: String!
+  label: String!
 }
 
 input NewPerson {
@@ -17,22 +18,26 @@ input NewPerson {
 type City {
   id: ID!
   name: String!
+  label: String!
 }
 
 type State {
   id: ID!
   name: String!
+  label: String!
 }
 
 type Cuisine {
   id: ID!
   name: String!
+  label: String!
 }
 
 type Restaurant {
   id: ID!
   name: String!
   address: String!
+  label: String!
 }
 
 input NewRestaurant {
@@ -47,6 +52,7 @@ type Review {
   createdAt: Int!
   rating: Int!
   body: String
+  label: String!
 }
 
 input NewReview {
@@ -60,6 +66,7 @@ type ReviewRating {
   id: ID!
   thumbsUp: Boolean!
   reviewDate: Int!
+  label: String!
 }
 
 input NewReviewRating {
@@ -73,19 +80,26 @@ type EventBridgeReponse {
 }
 
 type Query {
-  getPerson(id: ID!): Person
+  getPerson(personId: ID!): Person
   getFriends(personId: ID!): [Person!]
   getFriendsOfFriends(personId: ID!): [Person!]
   findPathBetweenPeople(person1Id: ID!, person2Id: ID!): String
   highestRatedRestaurantByCuisine(personId: ID!, cuisineIds: [ID!]!): Restaurant
   highestRatedRestaurants(personId: ID!): [Restaurant!]
   newestRestaurantReviews(restaurantId: ID!): [Review!]
-  restaurantsByFriendsRecommendation(personId: ID!): [Restaurant!]
-  restaurantsByFriendsReviewRatingss(personId: ID!): [Restaurant!]
+  restaurantsByFriendsRecommendations(personId: ID!): [Restaurant!]
+  restaurantsByFriendsReviewRatings(personId: ID!): [Restaurant!]
   restaurantsRatedOrReviewedByFriendsinXDays(
     personId: ID!
     numDays: Int! = 10
   ): [Restaurant!]
+  getAllStates: [State]
+  getAllCities: [City]
+  getAllCuisines: [Cuisine]
+  getAllRestaurants: [Restaurant]
+  getAllPersons: [Person]
+  getAllReviews: [Review]
+  getAllReviewRatings: [ReviewRating]
 }
 
 type Mutation {

@@ -183,6 +183,41 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       fieldName: "getPerson",
     });
 
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_STATES,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_CITIES,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_CUISINES,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_RESTAURANTS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_PERSONS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_REVIEWS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_ALL_REVIEW_RATINGS,
+    });
+
     /* ************************************************************** */
     /* *************** GraphQL API Mutation Resolvers *************** */
     /* ************************************************************** */
@@ -416,7 +451,7 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       ),
     });
 
-    const addReviewArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"createdAt\\\": \\\"$util.time.nowEpochSeconds()\\\", \\\"newReview\\\": { \\\"rating\\\": \\\"$ctx.args.newReview.rating\\\", \\\"body\\\": \\\"$ctx.args.newReview.body\\\", \\\"personId\\\": \\\"$ctx.args.newReview.personId\\\", \\\"restaurantId\\\": \\\"$ctx.args.newReview.restaurantId\\\" }`;
+    const addReviewArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"createdAt\\\": $util.time.nowEpochSeconds(), \\\"newReview\\\": { \\\"rating\\\": $ctx.args.newReview.rating, \\\"body\\\": \\\"$ctx.args.newReview.body\\\", \\\"personId\\\": \\\"$ctx.args.newReview.personId\\\", \\\"restaurantId\\\": \\\"$ctx.args.newReview.restaurantId\\\" }`;
     httpEventBridgeDS.createResolver({
       typeName: "Mutation",
       fieldName: MutationType.ADD_REVIEW,
@@ -440,7 +475,7 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       ),
     });
 
-    const addReviewRatingArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"reviewDate\\\": \\\"$util.time.nowEpochSeconds()\\\", \\\"newReviewRating\\\": { \\\"thumbsUp\\\": \\\"$ctx.args.newReviewRating.thumbsUp\\\", \\\"reviewId\\\": \\\"$ctx.args.newReviewRating.reviewId\\\", \\\"personId\\\": \\\"$ctx.args.newReviewRating.personId\\\" }`;
+    const addReviewRatingArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"reviewDate\\\": $util.time.nowEpochSeconds(), \\\"newReviewRating\\\": { \\\"thumbsUp\\\": $ctx.args.newReviewRating.thumbsUp, \\\"reviewId\\\": \\\"$ctx.args.newReviewRating.reviewId\\\", \\\"personId\\\": \\\"$ctx.args.newReviewRating.personId\\\" }`;
     httpEventBridgeDS.createResolver({
       typeName: "Mutation",
       fieldName: MutationType.ADD_REVIEW_RATING,
@@ -555,6 +590,26 @@ export class P15aGraphQlApiStack extends cdk.Stack {
 
     cdk.Tags.of(this).add("Project", "P15A-Dining-By-Friends-Neptune");
   }
+}
+
+enum QueryType {
+  GET_PERSON = "getPerson",
+  GET_FRIENDS = "getFriends",
+  GET_FRIENDS_OF_FRIENDS = "getFriendsOfFriends",
+  FIND_PATH_BETWEEN_PEOPLE = "findPathBetweenPeople",
+  HIGHEST_RATED_RESTAURANT_BY_CUISINE = "highestRatedRestaurantByCuisine",
+  HIGHEST_RATED_RESTAURANTS = "highestRatedRestaurants",
+  NEWEST_RESTAURANT_REVIEWS = "newestRestaurantReviews",
+  RESTAURANTS_BY_FRIENDS_RECOMMENDATION = "restaurantsByFriendsRecommendation",
+  RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS = "restaurantsByFriendsReviewRatings",
+  RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS = "restaurantsRatedOrReviewedByFriendsinXDays",
+  GET_ALL_STATES = "getAllStates",
+  GET_ALL_CITIES = "getAllCities",
+  GET_ALL_CUISINES = "getAllCuisines",
+  GET_ALL_RESTAURANTS = "getAllRestaurants",
+  GET_ALL_PERSONS = "getAllPersons",
+  GET_ALL_REVIEWS = "getAllReviews",
+  GET_ALL_REVIEW_RATINGS = "getAllReviewRatings",
 }
 
 enum MutationType {

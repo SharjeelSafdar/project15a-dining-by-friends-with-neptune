@@ -1,12 +1,23 @@
 import { AppSyncResolverHandler } from "aws-lambda";
+import * as gremlin from "gremlin";
 
-type Arguments = any;
-type Results = any;
+import { Arguments } from "./types";
+import {
+  createRemoteConnection,
+  createGraphTraversalSource,
+  runQuery,
+} from "./utils";
 
-export const handler: AppSyncResolverHandler<Arguments, Results> = async (
-  event,
-  context,
-  callback
-) => {
+let conn: gremlin.driver.DriverRemoteConnection;
+let g: gremlin.process.GraphTraversalSource;
+
+export const handler: AppSyncResolverHandler<Arguments, any> = async event => {
   console.log("Event ==> ", JSON.stringify(event, null, 2));
+
+  if (conn == null) {
+    conn = createRemoteConnection();
+    g = createGraphTraversalSource(conn);
+  }
+
+  return await runQuery(g, event.info.fieldName, event.arguments);
 };
