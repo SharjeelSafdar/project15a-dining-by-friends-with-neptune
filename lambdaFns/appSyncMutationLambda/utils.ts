@@ -359,6 +359,18 @@ export const runQuery = async (
       };
     }
     case MutationType.ADD_FRIENDS_EDGE: {
+      const isAlreadyFriend = await g
+        .V()
+        .has("person", "id", args.fromId)
+        .out("friends")
+        .has("person", "id", args.toId)
+        .toList();
+      console.log({ isAlreadyFriend });
+      if (isAlreadyFriend.length > 0) {
+        console.warn("Already friend... returning without any action...");
+        return;
+      }
+
       const result = await g
         .addE("friends")
         .from_(__.V().has("person", "id", args.fromId))

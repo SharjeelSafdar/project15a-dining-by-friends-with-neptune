@@ -180,7 +180,52 @@ export class P15aGraphQlApiStack extends cdk.Stack {
 
     queryLambdaDS.createResolver({
       typeName: "Query",
-      fieldName: "getPerson",
+      fieldName: QueryType.GET_PERSON,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_FRIENDS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.GET_FRIENDS_OF_FRIENDS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.FIND_PATH_BETWEEN_PEOPLE,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.HIGHEST_RATED_RESTAURANT_BY_CUISINE,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.HIGHEST_RATED_RESTAURANTS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.NEWEST_RESTAURANT_REVIEWS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS,
+    });
+
+    queryLambdaDS.createResolver({
+      typeName: "Query",
+      fieldName: QueryType.RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS,
     });
 
     queryLambdaDS.createResolver({
@@ -600,7 +645,7 @@ enum QueryType {
   HIGHEST_RATED_RESTAURANT_BY_CUISINE = "highestRatedRestaurantByCuisine",
   HIGHEST_RATED_RESTAURANTS = "highestRatedRestaurants",
   NEWEST_RESTAURANT_REVIEWS = "newestRestaurantReviews",
-  RESTAURANTS_BY_FRIENDS_RECOMMENDATION = "restaurantsByFriendsRecommendation",
+  RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS = "restaurantsByFriendsRecommendations",
   RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS = "restaurantsByFriendsReviewRatings",
   RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS = "restaurantsRatedOrReviewedByFriendsinXDays",
   GET_ALL_STATES = "getAllStates",

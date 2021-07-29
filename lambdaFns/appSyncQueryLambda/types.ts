@@ -15,7 +15,7 @@ export enum QueryType {
   HIGHEST_RATED_RESTAURANT_BY_CUISINE = "highestRatedRestaurantByCuisine",
   HIGHEST_RATED_RESTAURANTS = "highestRatedRestaurants",
   NEWEST_RESTAURANT_REVIEWS = "newestRestaurantReviews",
-  RESTAURANTS_BY_FRIENDS_RECOMMENDATION = "restaurantsByFriendsRecommendation",
+  RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS = "restaurantsByFriendsRecommendations",
   RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS = "restaurantsByFriendsReviewRatings",
   RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS = "restaurantsRatedOrReviewedByFriendsinXDays",
   GET_ALL_STATES = "getAllStates",

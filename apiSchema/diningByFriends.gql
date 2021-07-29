@@ -38,6 +38,8 @@ type Restaurant {
   name: String!
   address: String!
   label: String!
+  cuisine: String
+  averageRating: Float
 }
 
 input NewRestaurant {
@@ -83,7 +85,7 @@ type Query {
   getPerson(personId: ID!): Person
   getFriends(personId: ID!): [Person!]
   getFriendsOfFriends(personId: ID!): [Person!]
-  findPathBetweenPeople(person1Id: ID!, person2Id: ID!): String
+  findPathBetweenPeople(person1Id: ID!, person2Id: ID!): [String]
   highestRatedRestaurantByCuisine(personId: ID!, cuisineIds: [ID!]!): Restaurant
   highestRatedRestaurants(personId: ID!): [Restaurant!]
   newestRestaurantReviews(restaurantId: ID!): [Review!]
