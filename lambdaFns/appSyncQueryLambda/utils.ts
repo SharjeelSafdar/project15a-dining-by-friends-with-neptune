@@ -73,25 +73,25 @@ export const runQuery = async (
       return await restaurantsRatedOrReviewedByFriendsinXDays(g, args);
     }
     case QueryType.GET_ALL_STATES: {
-      return await getAllStates(g, args);
+      return await getAllStates(g);
     }
     case QueryType.GET_ALL_CITIES: {
-      return await getAllCities(g, args);
+      return await getAllCities(g);
     }
     case QueryType.GET_ALL_CUISINES: {
-      return await getAllCuisines(g, args);
+      return await getAllCuisines(g);
     }
     case QueryType.GET_ALL_RESTAURANTS: {
-      return await getAllRestaurants(g, args);
+      return await getAllRestaurants(g);
     }
     case QueryType.GET_ALL_PERSONS: {
-      return await getAllPersons(g, args);
+      return await getAllPersons(g);
     }
     case QueryType.GET_ALL_REVIEWS: {
-      return await getAllReviews(g, args);
+      return await getAllReviews(g);
     }
     case QueryType.GET_ALL_REVIEW_RATINGS: {
-      return await getAllReviewRatings(g, args);
+      return await getAllReviewRatings(g);
     }
     default: {
       return;
@@ -352,10 +352,7 @@ const restaurantsRatedOrReviewedByFriendsinXDays = async (
   return result;
 };
 
-const getAllStates = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllStates = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("state")
@@ -365,19 +362,13 @@ const getAllStates = async (
   return result;
 };
 
-const getAllCities = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllCities = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g.V().hasLabel("city").elementMap("id", "name").toList();
   console.log("All Cities ==> ", result);
   return result;
 };
 
-const getAllCuisines = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllCuisines = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("cuisine")
@@ -387,10 +378,7 @@ const getAllCuisines = async (
   return result;
 };
 
-const getAllRestaurants = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllRestaurants = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("restaurant")
@@ -400,10 +388,7 @@ const getAllRestaurants = async (
   return result;
 };
 
-const getAllPersons = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllPersons = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("person")
@@ -413,10 +398,7 @@ const getAllPersons = async (
   return result;
 };
 
-const getAllReviews = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllReviews = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("review")
@@ -426,10 +408,7 @@ const getAllReviews = async (
   return result;
 };
 
-const getAllReviewRatings = async (
-  g: gremlin.process.GraphTraversalSource,
-  args: Arguments
-) => {
+const getAllReviewRatings = async (g: gremlin.process.GraphTraversalSource) => {
   const result = await g
     .V()
     .hasLabel("reviewRating")
