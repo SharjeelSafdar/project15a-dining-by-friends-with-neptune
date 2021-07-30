@@ -1,15 +1,19 @@
 import * as gremlin from "gremlin";
 
-import { Arguments, QueryType } from "./types";
+import {
+  Arguments,
+  FinalResults,
+  ModifiedResults,
+  QueryType,
+  RestaurantsByFriendsReviewRatingsResult,
+} from "./types";
 
 const __ = gremlin.process.statics;
 const {
   P: { within, gte },
   order: { desc },
   column: { keys, values },
-  traversal,
 } = gremlin.process;
-const { Graph } = gremlin.structure;
 
 export const getConnectionDetails = () => {
   const uri = `wss://${process.env.NEPTUNE_WRITER}/gremlin`;
@@ -174,53 +178,63 @@ export const runQuery = async (
       return result;
     }
     case QueryType.RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS: {
-      const cityId = await g
+      const { value: cityId } = await g
         .V()
         .has("person", "id", args.personId)
         .out("livesIn")
         .values("id")
         .next();
-      const subGraph = await g
+
+      const result = (await g
         .V()
         .has("person", "id", args.personId)
-        .bothE("friends")
-        .subgraph("sg")
-        .otherV()
-        .outE("wrote")
-        .subgraph("sg")
-        .inV()
-        .optional(
-          __.hasLabel("reviewRating").outE("about").subgraph("sg").inV()
-        )
-        .outE("about")
-        .subgraph("sg")
-        .inV()
-        .outE("within")
-        .subgraph("sg")
-        .cap("sg")
-        .next();
-      const sg = traversal().withGraph(subGraph.value);
-      const result = await sg
-        .V()
-        .has("person", "id", args.personId)
-        .both("friends")
-        .has("city", "id", cityId)
-        .in_("within")
-        .group()
-        .by(__.identity())
-        .by(__.in_("about").values("rating").mean())
-        .unfold()
-        .order()
-        .by(values, desc)
-        .limit(3)
-        .project("id", "name", "address", "averageRating")
-        .by(__.select(keys).values("id"))
-        .by(__.select(keys).values("name"))
-        .by(__.select(keys).values("address"))
-        .by(__.select(values))
-        .toList();
-      console.log("Top 3 restaurant based on friends' reviews ==> ", result);
-      return result;
+        .out("friends")
+        .out("wrote")
+        .optional(__.hasLabel("reviewRating").out("about"))
+        .dedup()
+        .where(__.out("about").out("within").has("id", cityId))
+        .project("id", "name", "address", "rating")
+        .by(__.out("about").values("id"))
+        .by(__.out("about").values("name"))
+        .by(__.out("about").values("address"))
+        .by("rating")
+        .toList()) as RestaurantsByFriendsReviewRatingsResult;
+
+      let modifiedResult: ModifiedResults = [];
+      result.forEach(item => {
+        const itemIndex = modifiedResult.findIndex(
+          restaurant => restaurant.id === item.id
+        );
+        if (itemIndex === -1) {
+          modifiedResult.push({
+            id: item.id,
+            name: item.name,
+            address: item.address,
+            ratings: [item.rating],
+          });
+        } else {
+          modifiedResult[itemIndex].ratings.push(item.rating);
+        }
+      });
+
+      let restaurants: FinalResults = modifiedResult.map(item => ({
+        id: item.id,
+        name: item.name,
+        address: item.address,
+        averageRating:
+          item.ratings.reduce((prev, curr) => prev + curr, 0) /
+          item.ratings.length,
+      }));
+
+      restaurants = restaurants.sort(
+        (a, b) => b.averageRating - a.averageRating
+      );
+
+      console.log(
+        "Top 3 restaurant based on friends' reviews ==> ",
+        JSON.stringify(restaurants)
+      );
+      return restaurants.slice(0, 10);
     }
     case QueryType.RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS: {
       const timeBenchmark =

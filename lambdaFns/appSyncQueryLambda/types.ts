@@ -7,6 +7,27 @@ export type Arguments = {
   numDays: number;
 };
 
+export type RestaurantsByFriendsReviewRatingsResult = Array<{
+  id: string;
+  name: string;
+  address: string;
+  rating: number;
+}>;
+
+export type ModifiedResults = Array<{
+  id: string;
+  name: string;
+  address: string;
+  ratings: number[];
+}>;
+
+export type FinalResults = Array<{
+  id: string;
+  name: string;
+  address: string;
+  averageRating: number;
+}>;
+
 export enum QueryType {
   GET_PERSON = "getPerson",
   GET_FRIENDS = "getFriends",
