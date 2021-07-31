@@ -12,20 +12,25 @@ export type RestaurantsByFriendsReviewRatingsResult = Array<{
   name: string;
   address: string;
   rating: number;
+  cuisine: string;
 }>;
 
 export type ModifiedResults = Array<{
   id: string;
+  label: string;
   name: string;
   address: string;
   ratings: number[];
+  cuisine: string;
 }>;
 
 export type FinalResults = Array<{
   id: string;
+  label: string;
   name: string;
   address: string;
   averageRating: number;
+  cuisine: string;
 }>;
 
 export enum QueryType {

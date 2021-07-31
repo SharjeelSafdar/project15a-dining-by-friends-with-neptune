@@ -183,7 +183,7 @@ const highestRatedRestaurantByCuisine = async (
     .by(__.select(keys).out("serves").values("name"))
     .next();
   console.log("Highest rated restaurant by cuisine ==> ", result.value);
-  return result.value;
+  return { ...result.value, label: "restaurant" };
 };
 
 const highestRatedRestaurants = async (
@@ -203,14 +203,18 @@ const highestRatedRestaurants = async (
     .order()
     .by(values, desc)
     .limit(10)
-    .project("id", "name", "address", "averageRating")
+    .project("id", "name", "address", "averageRating", "cuisine")
     .by(__.select(keys).values("id"))
     .by(__.select(keys).values("name"))
     .by(__.select(keys).values("address"))
     .by(__.select(values))
+    .by(__.select(keys).out("serves").values("name"))
     .toList();
   console.log("Top 10 highest rated restaurant ==> ", result);
-  return result;
+  return result.map(restaurant => ({
+    ...restaurant,
+    label: "restaurant",
+  }));
 };
 
 const newestRestaurantReviews = async (
@@ -256,14 +260,18 @@ const restaurantsByFriendsRecommendations = async (
     .order()
     .by(values, desc)
     .limit(3)
-    .project("id", "name", "address", "averageRating")
+    .project("id", "name", "address", "averageRating", "cuisine")
     .by(__.select(keys).values("id"))
     .by(__.select(keys).values("name"))
     .by(__.select(keys).values("address"))
     .by(__.select(values))
+    .by(__.select(keys).out("serves").values("name"))
     .toList();
   console.log("Top 3 restaurant recommended by friends ==> ", result);
-  return result;
+  return result.map(restaurant => ({
+    ...restaurant,
+    label: "restaurant",
+  }));
 };
 
 const restaurantsByFriendsReviewRatings = async (
@@ -285,11 +293,12 @@ const restaurantsByFriendsReviewRatings = async (
     .optional(__.hasLabel("reviewRating").out("about"))
     .dedup()
     .where(__.out("about").out("within").has("id", cityId))
-    .project("id", "name", "address", "rating")
+    .project("id", "name", "address", "rating", "cuisine")
     .by(__.out("about").values("id"))
     .by(__.out("about").values("name"))
     .by(__.out("about").values("address"))
     .by("rating")
+    .by(__.out("about").out("serves").values("name"))
     .toList()) as RestaurantsByFriendsReviewRatingsResult;
 
   let modifiedResult: ModifiedResults = [];
@@ -300,9 +309,11 @@ const restaurantsByFriendsReviewRatings = async (
     if (itemIndex === -1) {
       modifiedResult.push({
         id: item.id,
+        label: "restaurant",
         name: item.name,
         address: item.address,
         ratings: [item.rating],
+        cuisine: item.cuisine,
       });
     } else {
       modifiedResult[itemIndex].ratings.push(item.rating);
@@ -311,10 +322,17 @@ const restaurantsByFriendsReviewRatings = async (
 
   let restaurants: FinalResults = modifiedResult.map(item => ({
     id: item.id,
+    label: item.label,
     name: item.name,
     address: item.address,
     averageRating:
-      item.ratings.reduce((prev, curr) => prev + curr, 0) / item.ratings.length,
+      Math.round(
+        (item.ratings.reduce((prev, curr) => prev + curr, 0) /
+          item.ratings.length +
+          Number.EPSILON) *
+          100
+      ) / 100,
+    cuisine: item.cuisine,
   }));
 
   restaurants = restaurants.sort((a, b) => b.averageRating - a.averageRating);

@@ -140,7 +140,7 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       schema: appsync.Schema.fromAsset("apiSchema/diningByFriends.gql"),
       authorizationConfig: {
         defaultAuthorization: {
-          authorizationType: appsync.AuthorizationType.IAM,
+          authorizationType: appsync.AuthorizationType.API_KEY,
           apiKeyConfig: {
             expires: cdk.Expiration.after(cdk.Duration.days(365)),
           },

@@ -38,8 +38,15 @@ type Restaurant {
   name: String!
   address: String!
   label: String!
-  cuisine: String
-  averageRating: Float
+}
+
+type RestaurantWithRating {
+  id: ID!
+  name: String!
+  address: String!
+  label: String!
+  cuisine: String!
+  averageRating: Float!
 }
 
 input NewRestaurant {
@@ -86,11 +93,14 @@ type Query {
   getFriends(personId: ID!): [Person!]
   getFriendsOfFriends(personId: ID!): [Person!]
   findPathBetweenPeople(person1Id: ID!, person2Id: ID!): [String]
-  highestRatedRestaurantByCuisine(personId: ID!, cuisineIds: [ID!]!): Restaurant
-  highestRatedRestaurants(personId: ID!): [Restaurant!]
+  highestRatedRestaurantByCuisine(
+    personId: ID!
+    cuisineIds: [ID!]!
+  ): RestaurantWithRating
+  highestRatedRestaurants(personId: ID!): [RestaurantWithRating!]
   newestRestaurantReviews(restaurantId: ID!): [Review!]
-  restaurantsByFriendsRecommendations(personId: ID!): [Restaurant!]
-  restaurantsByFriendsReviewRatings(personId: ID!): [Restaurant!]
+  restaurantsByFriendsRecommendations(personId: ID!): [RestaurantWithRating!]
+  restaurantsByFriendsReviewRatings(personId: ID!): [RestaurantWithRating!]
   restaurantsRatedOrReviewedByFriendsinXDays(
     personId: ID!
     numDays: Int! = 10
