@@ -57,7 +57,6 @@ jobs:
           working-directory: lambdaFns/newPerson
 
       - name: Build CDK App with TypeScript Compiler
-        working-directory: backend
         run: npm run build
 
       - name: Run Tests with Jest
