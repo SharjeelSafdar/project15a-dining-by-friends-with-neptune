@@ -1,9 +1,5 @@
-import {
-  expect as expectCDK,
-  matchTemplate,
-  MatchStyle,
-} from "@aws-cdk/assert";
 import * as cdk from "@aws-cdk/core";
+import { SynthUtils } from "@aws-cdk/assert";
 import { P15aGraphQlApiStack } from "../lib/project15a-dining-by-friends-with-neptune-stack";
 
 const createTestStack = (app: cdk.App) =>
@@ -12,14 +8,7 @@ const createTestStack = (app: cdk.App) =>
 test("Empty Stack", () => {
   const app = new cdk.App();
   // WHEN
-  const stack = createTestStack;
+  const stack = createTestStack(app);
   // THEN
-  expectCDK(stack).to(
-    matchTemplate(
-      {
-        Resources: {},
-      },
-      MatchStyle.EXACT
-    )
-  );
+  expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });

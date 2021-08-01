@@ -1,0 +1,3008 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Empty Stack 1`] = `
+Object {
+  "Outputs": Object {
+    "ApiKey": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "P15aGraphQlApiDefaultApiKey7BDF6D67",
+          "ApiKey",
+        ],
+      },
+    },
+    "P15aUserPoolClientId": Object {
+      "Value": Object {
+        "Ref": "P15aUserPoolP15aUserPoolClient987D6AD6",
+      },
+    },
+    "P15aUserPoolDomain": Object {
+      "Value": Object {
+        "Ref": "P15aUserPoolP15aUserPoolDomain4FD72C86",
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cArtifactHashACB482C8": Object {
+      "Description": "Artifact hash for asset \\"003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18c\\"",
+      "Type": "String",
+    },
+    "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cS3Bucket2B97600A": Object {
+      "Description": "S3 bucket for asset \\"003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18c\\"",
+      "Type": "String",
+    },
+    "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cS3VersionKey6555D921": Object {
+      "Description": "S3 key for asset version \\"003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18c\\"",
+      "Type": "String",
+    },
+    "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189ArtifactHashFDBA033C": Object {
+      "Description": "Artifact hash for asset \\"993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189\\"",
+      "Type": "String",
+    },
+    "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189S3Bucket81F300C0": Object {
+      "Description": "S3 bucket for asset \\"993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189\\"",
+      "Type": "String",
+    },
+    "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189S3VersionKeyB38B3B03": Object {
+      "Description": "S3 key for asset version \\"993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189\\"",
+      "Type": "String",
+    },
+    "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cArtifactHash9369DAF7": Object {
+      "Description": "Artifact hash for asset \\"c965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0c\\"",
+      "Type": "String",
+    },
+    "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cS3BucketB66E9C5D": Object {
+      "Description": "S3 bucket for asset \\"c965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0c\\"",
+      "Type": "String",
+    },
+    "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cS3VersionKeyBE5087BE": Object {
+      "Description": "S3 key for asset version \\"c965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0c\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "P15aAppSyncMutationLambdaBF0C9908": Object {
+      "DependsOn": Array [
+        "P15aAppSyncMutationLambdaServiceRole22B799BB",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cS3BucketB66E9C5D",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cS3VersionKeyBE5087BE",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersc965113186b614acb3bf097dc00fff78199bc67551b7e73432a511ecc8687f0cS3VersionKeyBE5087BE",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "NEPTUNE_READER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "ReadEndpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+            "NEPTUNE_WRITER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Endpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+          },
+        },
+        "FunctionName": "p15a-appsync-mutation-lambda",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "P15aAppSyncMutationLambdaServiceRole22B799BB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "Timeout": 10,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "P15aSecurityGroup0DF25196",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "P15aVpcIngressSubnet1Subnet407E38BE",
+            },
+            Object {
+              "Ref": "P15aVpcIngressSubnet2SubnetE64D60B4",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "P15aAppSyncMutationLambdaServiceRole22B799BB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "P15aAppSyncQueryLambdaBE10BC36": Object {
+      "DependsOn": Array [
+        "P15aAppSyncQueryLambdaServiceRoleD15B3A65",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189S3Bucket81F300C0",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189S3VersionKeyB38B3B03",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters993b71393491d33cb7e9652f152909b57de784c6b5397133ef4c70f5cb731189S3VersionKeyB38B3B03",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "NEPTUNE_READER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "ReadEndpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+            "NEPTUNE_WRITER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Endpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+          },
+        },
+        "FunctionName": "p15a-appsync-query-lambda",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "P15aAppSyncQueryLambdaServiceRoleD15B3A65",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "Timeout": 10,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "P15aSecurityGroup0DF25196",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "P15aVpcIngressSubnet1Subnet407E38BE",
+            },
+            Object {
+              "Ref": "P15aVpcIngressSubnet2SubnetE64D60B4",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "P15aAppSyncQueryLambdaServiceRoleD15B3A65": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "P15aEventRuleAllowEventRuleMyTestStackP15aAppSyncMutationLambda46F112806BF4EE26": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "P15aAppSyncMutationLambdaBF0C9908",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "P15aEventRuleFA2827F3",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "P15aEventRuleFA2827F3": Object {
+      "Properties": Object {
+        "Description": "Rule to invoke the mutation lambda when a mutation is run in AppSync",
+        "EventPattern": Object {
+          "detail-type": Array [
+            "addPerson",
+            "addUpdateFirstName",
+            "addUpdateLastName",
+            "deletePerson",
+            "addCity",
+            "updateCityName",
+            "deleteCity",
+            "addState",
+            "updateStateName",
+            "deleteState",
+            "addCuisine",
+            "updateCuisineName",
+            "deleteCuisine",
+            "addRestaurant",
+            "updateRestaurantName",
+            "updateRestaurantAddress",
+            "deleteRestaurant",
+            "addReview",
+            "deleteReview",
+            "addReviewRating",
+            "deleteReviewRating",
+            "addFriendsEdge",
+            "deleteFriendsEdge",
+          ],
+          "source": Array [
+            "p15a-appsync-api",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "P15aAppSyncMutationLambdaBF0C9908",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "P15aGraphQlApi0DCECFBA": Object {
+      "Properties": Object {
+        "AuthenticationType": "API_KEY",
+        "Name": "P15a-GraphQL-Api",
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::AppSync::GraphQLApi",
+    },
+    "P15aGraphQlApiDefaultApiKey7BDF6D67": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "Expires": 1659358147,
+      },
+      "Type": "AWS::AppSync::ApiKey",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDS4D019845": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "Description": "Sending events to EventBridge on AppSync mutations",
+        "HttpConfig": Object {
+          "AuthorizationConfig": Object {
+            "AuthorizationType": "AWS_IAM",
+            "AwsIamConfig": Object {
+              "SigningRegion": Object {
+                "Ref": "AWS::Region",
+              },
+              "SigningServiceName": "events",
+            },
+          },
+          "Endpoint": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "https://events.",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ".amazonaws.com/",
+              ],
+            ],
+          },
+        },
+        "Name": "p15aHttpEventBridgeDS",
+        "ServiceRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApiP15aHttpEventBridgeDSServiceRole9E6EA0B9",
+            "Arn",
+          ],
+        },
+        "Type": "HTTP",
+      },
+      "Type": "AWS::AppSync::DataSource",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddCityResolver514842BA": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addCity",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addCity\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"name\\\\\\": \\\\\\"$ctx.args.name\\\\\\", \\\\\\"stateId\\\\\\": \\\\\\"$ctx.args.stateId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddCuisineResolver5824615A": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addCuisine",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addCuisine\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"name\\\\\\": \\\\\\"$ctx.args.name\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddFriendsEdgeResolver486839D4": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addFriendsEdge",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addFriendsEdge\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"fromId\\\\\\": \\\\\\"$ctx.args.fromId\\\\\\", \\\\\\"toId\\\\\\": \\\\\\"$ctx.args.toId\\\\\\", \\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddPersonResolver39260BEF": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addPerson",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addPerson\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"newPerson\\\\\\": { \\\\\\"username\\\\\\": \\\\\\"$ctx.args.newPerson.username\\\\\\", \\\\\\"email\\\\\\": \\\\\\"$ctx.args.newPerson.email\\\\\\", \\\\\\"firstName\\\\\\": \\\\\\"$ctx.args.newPerson.firstName\\\\\\", \\\\\\"lastName\\\\\\": \\\\\\"$ctx.args.newPerson.lastName\\\\\\", \\\\\\"cityId\\\\\\": \\\\\\"$ctx.args.newPerson.cityId\\\\\\" }}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddRestaurantResolverA2F62B62": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addRestaurant",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addRestaurant\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"newRestaurant\\\\\\": { \\\\\\"name\\\\\\": \\\\\\"$ctx.args.newRestaurant.name\\\\\\", \\\\\\"address\\\\\\": \\\\\\"$ctx.args.newRestaurant.address\\\\\\", \\\\\\"cityId\\\\\\": \\\\\\"$ctx.args.newRestaurant.cityId\\\\\\", \\\\\\"cuisineId\\\\\\": \\\\\\"$ctx.args.newRestaurant.cuisineId\\\\\\" }}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddReviewRatingResolverB076D8A5": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addReviewRating",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addReviewRating\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"reviewDate\\\\\\": $util.time.nowEpochSeconds(), \\\\\\"newReviewRating\\\\\\": { \\\\\\"thumbsUp\\\\\\": $ctx.args.newReviewRating.thumbsUp, \\\\\\"reviewId\\\\\\": \\\\\\"$ctx.args.newReviewRating.reviewId\\\\\\", \\\\\\"personId\\\\\\": \\\\\\"$ctx.args.newReviewRating.personId\\\\\\" }}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddReviewResolver10C3281C": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addReview",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addReview\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"createdAt\\\\\\": $util.time.nowEpochSeconds(), \\\\\\"newReview\\\\\\": { \\\\\\"rating\\\\\\": $ctx.args.newReview.rating, \\\\\\"body\\\\\\": \\\\\\"$ctx.args.newReview.body\\\\\\", \\\\\\"personId\\\\\\": \\\\\\"$ctx.args.newReview.personId\\\\\\", \\\\\\"restaurantId\\\\\\": \\\\\\"$ctx.args.newReview.restaurantId\\\\\\" }}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddStateResolverE7BCA0E5": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addState",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addState\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"id\\\\\\": \\\\\\"$util.autoId()\\\\\\", \\\\\\"name\\\\\\": \\\\\\"$ctx.args.name\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddUpdateFirstNameResolver066F993C": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addUpdateFirstName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addUpdateFirstName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"personId\\\\\\": \\\\\\"$ctx.args.personId\\\\\\", \\\\\\"firstName\\\\\\": \\\\\\"$ctx.args.firstName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationaddUpdateLastNameResolver8E7409BD": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "addUpdateLastName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"addUpdateLastName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"personId\\\\\\": \\\\\\"$ctx.args.personId\\\\\\", \\\\\\"lastName\\\\\\": \\\\\\"$ctx.args.lastName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteCityResolverB63C00D7": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteCity",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteCity\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"cityId\\\\\\": \\\\\\"$ctx.args.cityId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteCuisineResolver3DDF20C6": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteCuisine",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteCuisine\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"cuisineId\\\\\\": \\\\\\"$ctx.args.cuisineId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteFriendsEdgeResolver2635C9F1": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteFriendsEdge",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteFriendsEdge\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"friendsEdgeId\\\\\\": \\\\\\"$ctx.args.friendsEdgeId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeletePersonResolver7D099D9A": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deletePerson",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deletePerson\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"personId\\\\\\": \\\\\\"$ctx.args.personId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteRestaurantResolver5FE0224D": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteRestaurant",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteRestaurant\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"restaurantId\\\\\\": \\\\\\"$ctx.args.restaurantId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteReviewRatingResolver963E4217": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteReviewRating",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteReviewRating\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"reviewRatingId\\\\\\": \\\\\\"$ctx.args.reviewRatingId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteReviewResolverE66541A1": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteReview",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteReview\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"reviewId\\\\\\": \\\\\\"$ctx.args.reviewId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationdeleteStateResolverCFDF00C3": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "deleteState",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"deleteState\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"stateId\\\\\\": \\\\\\"$ctx.args.stateId\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationupdateCityNameResolver604843E0": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "updateCityName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"updateCityName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"cityId\\\\\\": \\\\\\"$ctx.args.cityId\\\\\\", \\\\\\"newName\\\\\\": \\\\\\"$ctx.args.newName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationupdateCuisineNameResolver4FFFF93A": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "updateCuisineName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"updateCuisineName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"cuisineId\\\\\\": \\\\\\"$ctx.args.cuisineId\\\\\\", \\\\\\"newName\\\\\\": \\\\\\"$ctx.args.newName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationupdateRestaurantAddressResolverC2D87A49": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "updateRestaurantAddress",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"updateRestaurantAddress\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"restaurantId\\\\\\": \\\\\\"$ctx.args.restaurantId\\\\\\", \\\\\\"newAddress\\\\\\": \\\\\\"$ctx.args.newAddress\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationupdateRestaurantNameResolverBF447D7E": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "updateRestaurantName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"updateRestaurantName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"restaurantId\\\\\\": \\\\\\"$ctx.args.restaurantId\\\\\\", \\\\\\"newName\\\\\\": \\\\\\"$ctx.args.newName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSMutationupdateStateNameResolver1965DFFC": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aHttpEventBridgeDS4D019845",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "p15aHttpEventBridgeDS",
+        "FieldName": "updateStateName",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "
+    {
+      \\"version\\": \\"2018-05-29\\",
+      \\"method\\": \\"POST\\",
+      \\"resourcePath\\": \\"/\\",
+      \\"params\\": {
+        \\"headers\\": {
+          \\"content-type\\": \\"application/x-amz-json-1.1\\",
+          \\"x-amz-target\\":\\"AWSEvents.PutEvents\\"
+        },
+        \\"body\\": {
+          \\"Entries\\": [
+            {
+              \\"DetailType\\": \\"updateStateName\\",
+              \\"Source\\": \\"p15a-appsync-api\\",
+              \\"EventBusName\\": \\"default\\",
+              \\"Detail\\": \\"{\\\\\\"stateId\\\\\\": \\\\\\"$ctx.args.stateId\\\\\\", \\\\\\"newName\\\\\\": \\\\\\"$ctx.args.newName\\\\\\"}\\"
+            }
+          ]
+        }
+      }
+    }
+  ",
+        "ResponseMappingTemplate": "
+    #if($ctx.error)
+      $util.error($ctx.error.message, $ctx.error.type)
+    #end
+
+    #if($ctx.result.statusCode == 200)
+    {
+      \\"result\\": \\"$util.parseJson($ctx.result.body)\\"
+    }
+    #else
+      $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+  ",
+        "TypeName": "Mutation",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSServiceRole9E6EA0B9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "appsync.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "P15aGraphQlApiP15aHttpEventBridgeDSServiceRoleDefaultPolicy946CA093": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "events:PutEvents",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "P15aGraphQlApiP15aHttpEventBridgeDSServiceRoleDefaultPolicy946CA093",
+        "Roles": Array [
+          Object {
+            "Ref": "P15aGraphQlApiP15aHttpEventBridgeDSServiceRole9E6EA0B9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "P15aGraphQlApiP15aLambdaDS55AA4CE5": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "LambdaConfig": Object {
+          "LambdaFunctionArn": Object {
+            "Fn::GetAtt": Array [
+              "P15aAppSyncQueryLambdaBE10BC36",
+              "Arn",
+            ],
+          },
+        },
+        "Name": "P15aLambdaDS",
+        "ServiceRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApiP15aLambdaDSServiceRole301FBA02",
+            "Arn",
+          ],
+        },
+        "Type": "AWS_LAMBDA",
+      },
+      "Type": "AWS::AppSync::DataSource",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryfindPathBetweenPeopleResolver5A4EAA58": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "findPathBetweenPeople",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllCitiesResolver2660832D": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllCities",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllCuisinesResolver7D37BF61": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllCuisines",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllPersonsResolver9F72B43F": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllPersons",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllRestaurantsResolver8B9FA918": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllRestaurants",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllReviewRatingsResolver14D1AD5C": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllReviewRatings",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllReviewsResolver5C72224B": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllReviews",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetAllStatesResolverB421970A": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getAllStates",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetFriendsOfFriendsResolverC57CD62A": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getFriendsOfFriends",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetFriendsResolverD3BCE7E7": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getFriends",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerygetPersonResolverECA3CBEE": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "getPerson",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryhighestRatedRestaurantByCuisineResolver77399B6E": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "highestRatedRestaurantByCuisine",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryhighestRatedRestaurantsResolver6553676D": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "highestRatedRestaurants",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQuerynewestRestaurantReviewsResolverC9EE1C79": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "newestRestaurantReviews",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryrestaurantsByFriendsRecommendationsResolverEE8460EB": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "restaurantsByFriendsRecommendations",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryrestaurantsByFriendsReviewRatingsResolverE02D29FD": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "restaurantsByFriendsReviewRatings",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSQueryrestaurantsRatedOrReviewedByFriendsinXDaysResolver79D373AC": Object {
+      "DependsOn": Array [
+        "P15aGraphQlApiP15aLambdaDS55AA4CE5",
+        "P15aGraphQlApiSchema23914182",
+      ],
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "DataSourceName": "P15aLambdaDS",
+        "FieldName": "restaurantsRatedOrReviewedByFriendsinXDays",
+        "Kind": "UNIT",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "P15aGraphQlApiP15aLambdaDSServiceRole301FBA02": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "appsync.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "P15aGraphQlApiP15aLambdaDSServiceRoleDefaultPolicyE5196E56": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "P15aAppSyncQueryLambdaBE10BC36",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "P15aGraphQlApiP15aLambdaDSServiceRoleDefaultPolicyE5196E56",
+        "Roles": Array [
+          Object {
+            "Ref": "P15aGraphQlApiP15aLambdaDSServiceRole301FBA02",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "P15aGraphQlApiSchema23914182": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Fn::GetAtt": Array [
+            "P15aGraphQlApi0DCECFBA",
+            "ApiId",
+          ],
+        },
+        "Definition": "type Person {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  username: String!
+  email: String!
+  label: String!
+}
+
+input NewPerson {
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  cityId: ID!
+}
+
+type City {
+  id: ID!
+  name: String!
+  label: String!
+}
+
+type State {
+  id: ID!
+  name: String!
+  label: String!
+}
+
+type Cuisine {
+  id: ID!
+  name: String!
+  label: String!
+}
+
+type Restaurant {
+  id: ID!
+  name: String!
+  address: String!
+  label: String!
+}
+
+type RestaurantWithRating {
+  id: ID!
+  name: String!
+  address: String!
+  label: String!
+  cuisine: String!
+  averageRating: Float!
+}
+
+input NewRestaurant {
+  name: String!
+  address: String!
+  cityId: ID!
+  cuisineId: ID!
+}
+
+type Review {
+  id: ID!
+  createdAt: Int!
+  rating: Int!
+  body: String
+  label: String!
+}
+
+input NewReview {
+  rating: Int!
+  body: String
+  personId: ID!
+  restaurantId: ID!
+}
+
+type ReviewRating {
+  id: ID!
+  thumbsUp: Boolean!
+  reviewDate: Int!
+  label: String!
+}
+
+input NewReviewRating {
+  thumbsUp: Boolean!
+  personId: ID!
+  reviewId: ID!
+}
+
+type EventBridgeReponse {
+  result: String!
+}
+
+type Query {
+  getPerson(personId: ID!): Person
+  getFriends(personId: ID!): [Person!]
+  getFriendsOfFriends(personId: ID!): [Person!]
+  findPathBetweenPeople(person1Id: ID!, person2Id: ID!): [String]
+  highestRatedRestaurantByCuisine(
+    personId: ID!
+    cuisineIds: [ID!]!
+  ): RestaurantWithRating
+  highestRatedRestaurants(personId: ID!): [RestaurantWithRating!]
+  newestRestaurantReviews(restaurantId: ID!): [Review!]
+  restaurantsByFriendsRecommendations(personId: ID!): [RestaurantWithRating!]
+  restaurantsByFriendsReviewRatings(personId: ID!): [RestaurantWithRating!]
+  restaurantsRatedOrReviewedByFriendsinXDays(
+    personId: ID!
+    numDays: Int! = 10
+  ): [Restaurant!]
+  getAllStates: [State]
+  getAllCities: [City]
+  getAllCuisines: [Cuisine]
+  getAllRestaurants: [Restaurant]
+  getAllPersons: [Person]
+  getAllReviews: [Review]
+  getAllReviewRatings: [ReviewRating]
+}
+
+type Mutation {
+  addPerson(newPerson: NewPerson!): EventBridgeReponse
+  addUpdateFirstName(personId: ID!, firstName: String!): EventBridgeReponse
+  addUpdateLastName(personId: ID!, lastName: String!): EventBridgeReponse
+  deletePerson(personId: ID!): EventBridgeReponse
+  addCity(name: String!, stateId: ID!): EventBridgeReponse
+  updateCityName(cityId: ID!, newName: String!): EventBridgeReponse
+  deleteCity(cityId: ID!): EventBridgeReponse
+  addState(name: String!): EventBridgeReponse
+  updateStateName(stateId: ID!, newName: String!): EventBridgeReponse
+  deleteState(stateId: ID!): EventBridgeReponse
+  addCuisine(name: String!): EventBridgeReponse
+  updateCuisineName(cuisineId: ID!, newName: String!): EventBridgeReponse
+  deleteCuisine(cuisineId: ID!): EventBridgeReponse
+  addRestaurant(newRestaurant: NewRestaurant!): EventBridgeReponse
+  updateRestaurantName(restaurantId: ID!, newName: String!): EventBridgeReponse
+  updateRestaurantAddress(
+    restaurantId: ID!
+    newAddress: String!
+  ): EventBridgeReponse
+  deleteRestaurant(restaurantId: ID): EventBridgeReponse
+  addReview(newReview: NewReview!): EventBridgeReponse
+  deleteReview(reviewId: ID!): EventBridgeReponse
+  addReviewRating(newReviewRating: NewReviewRating!): EventBridgeReponse
+  deleteReviewRating(reviewRatingId: ID!): EventBridgeReponse
+  addFriendsEdge(fromId: ID!, toId: ID!): EventBridgeReponse
+  deleteFriendsEdge(friendsEdgeId: ID!): EventBridgeReponse
+}
+
+type schema {
+  query: Query
+  mutation: Mutation
+}
+",
+      },
+      "Type": "AWS::AppSync::GraphQLSchema",
+    },
+    "P15aNeptuneCluster4C1C3D41": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": "P15a-Neptune-Cluster",
+        "DBSubnetGroupName": Object {
+          "Ref": "P15aNeptuneClusterSubnets6CBB3EB7",
+        },
+        "DeletionProtection": false,
+        "EngineVersion": "1.0.4.1",
+        "StorageEncrypted": true,
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcSecurityGroupIds": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "P15aSecurityGroup0DF25196",
+              "GroupId",
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::Neptune::DBCluster",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "P15aNeptuneClusterInstance13169F41D": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": Object {
+          "Ref": "P15aNeptuneCluster4C1C3D41",
+        },
+        "DBInstanceClass": "db.t3.medium",
+        "DBInstanceIdentifier": "P15a-Neptune-Clusterinstance1",
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::Neptune::DBInstance",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "P15aNeptuneClusterSubnets6CBB3EB7": Object {
+      "Properties": Object {
+        "DBSubnetGroupDescription": "Subnets for P15aNeptuneCluster database",
+        "SubnetIds": Array [
+          Object {
+            "Ref": "P15aVpcIngressSubnet1Subnet407E38BE",
+          },
+          Object {
+            "Ref": "P15aVpcIngressSubnet2SubnetE64D60B4",
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::Neptune::DBSubnetGroup",
+    },
+    "P15aNewPersonLambdaACCDC954": Object {
+      "DependsOn": Array [
+        "P15aNewPersonLambdaServiceRole0BE1FC61",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cS3Bucket2B97600A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cS3VersionKey6555D921",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters003feb7e47d315bdb16ea9121e6631542e0bf79115c57189e56b527cae84b18cS3VersionKey6555D921",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "NEPTUNE_READER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "ReadEndpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+            "NEPTUNE_WRITER": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Endpoint",
+                    ],
+                  },
+                  ":",
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "P15aNeptuneCluster4C1C3D41",
+                      "Port",
+                    ],
+                  },
+                ],
+              ],
+            },
+          },
+        },
+        "FunctionName": "p15a-new-person-lambda",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "P15aNewPersonLambdaServiceRole0BE1FC61",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "Timeout": 10,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "P15aSecurityGroup0DF25196",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "P15aVpcIngressSubnet1Subnet407E38BE",
+            },
+            Object {
+              "Ref": "P15aVpcIngressSubnet2SubnetE64D60B4",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "P15aNewPersonLambdaPostConfirmationCognitoFBE6B3B0": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "P15aNewPersonLambdaACCDC954",
+            "Arn",
+          ],
+        },
+        "Principal": "cognito-idp.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "P15aUserPoolC906EF1F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "P15aNewPersonLambdaServiceRole0BE1FC61": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "P15aSecurityGroup0DF25196": Object {
+      "Properties": Object {
+        "GroupDescription": "Security group for Neptune DB",
+        "GroupName": "P15aSecurityGroup",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "P15aVpc017C77F8",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "P15aSecurityGroupfrom00000IndirectPort0F840137": Object {
+      "Properties": Object {
+        "CidrIp": "0.0.0.0/0",
+        "Description": "Open to the world",
+        "FromPort": Object {
+          "Fn::GetAtt": Array [
+            "P15aNeptuneCluster4C1C3D41",
+            "Port",
+          ],
+        },
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "P15aSecurityGroup0DF25196",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": Object {
+          "Fn::GetAtt": Array [
+            "P15aNeptuneCluster4C1C3D41",
+            "Port",
+          ],
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "P15aSecurityGroupfromMyTestStackP15aSecurityGroup55F2BA6D818200C506B8": Object {
+      "Properties": Object {
+        "Description": "Rule for accessing NeptuneDB instance.",
+        "FromPort": 8182,
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "P15aSecurityGroup0DF25196",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": Object {
+          "Fn::GetAtt": Array [
+            "P15aSecurityGroup0DF25196",
+            "GroupId",
+          ],
+        },
+        "ToPort": 8182,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "P15aUserPoolC906EF1F": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "AccountRecoverySetting": Object {
+          "RecoveryMechanisms": Array [
+            Object {
+              "Name": "verified_email",
+              "Priority": 1,
+            },
+          ],
+        },
+        "AdminCreateUserConfig": Object {
+          "AllowAdminCreateUserOnly": false,
+        },
+        "AliasAttributes": Array [
+          "email",
+        ],
+        "AutoVerifiedAttributes": Array [
+          "email",
+        ],
+        "LambdaConfig": Object {
+          "PostConfirmation": Object {
+            "Fn::GetAtt": Array [
+              "P15aNewPersonLambdaACCDC954",
+              "Arn",
+            ],
+          },
+        },
+        "Policies": Object {
+          "PasswordPolicy": Object {
+            "MinimumLength": 8,
+            "RequireLowercase": true,
+            "RequireNumbers": true,
+            "RequireUppercase": true,
+          },
+        },
+        "Schema": Array [
+          Object {
+            "Mutable": false,
+            "Name": "email",
+            "Required": true,
+          },
+          Object {
+            "Mutable": true,
+            "Name": "given_name",
+            "Required": true,
+          },
+          Object {
+            "Mutable": true,
+            "Name": "family_name",
+            "Required": true,
+          },
+        ],
+        "SmsVerificationMessage": "The verification code to your new account is {####}",
+        "UserPoolTags": Object {
+          "Project": "P15A-Dining-By-Friends-Neptune",
+        },
+        "UsernameConfiguration": Object {
+          "CaseSensitive": true,
+        },
+        "VerificationMessageTemplate": Object {
+          "DefaultEmailOption": "CONFIRM_WITH_LINK",
+          "EmailMessageByLink": "Verify your account by clicking on {##Verify Email##}",
+          "EmailSubjectByLink": "Verify your new account",
+          "SmsMessage": "The verification code to your new account is {####}",
+        },
+      },
+      "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "P15aUserPoolP15aUserPoolClient987D6AD6": Object {
+      "Properties": Object {
+        "AllowedOAuthFlows": Array [
+          "implicit",
+          "code",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": Array [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": Array [
+          "https://example.com",
+        ],
+        "ExplicitAuthFlows": Array [
+          "ALLOW_USER_PASSWORD_AUTH",
+          "ALLOW_REFRESH_TOKEN_AUTH",
+        ],
+        "SupportedIdentityProviders": Array [
+          "COGNITO",
+        ],
+        "UserPoolId": Object {
+          "Ref": "P15aUserPoolC906EF1F",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "P15aUserPoolP15aUserPoolDomain4FD72C86": Object {
+      "Properties": Object {
+        "Domain": "dining-by-friends-p15a",
+        "UserPoolId": Object {
+          "Ref": "P15aUserPoolC906EF1F",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolDomain",
+    },
+    "P15aVpc017C77F8": Object {
+      "Properties": Object {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "MyTestStack/P15aVpc",
+          },
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "P15aVpcIngressSubnet1RouteTableAssociation108C4347": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "P15aVpcIngressSubnet1RouteTableDBF236B4",
+        },
+        "SubnetId": Object {
+          "Ref": "P15aVpcIngressSubnet1Subnet407E38BE",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "P15aVpcIngressSubnet1RouteTableDBF236B4": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "MyTestStack/P15aVpc/IngressSubnet1",
+          },
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "P15aVpc017C77F8",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "P15aVpcIngressSubnet1Subnet407E38BE": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            0,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Ingress",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "MyTestStack/P15aVpc/IngressSubnet1",
+          },
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "P15aVpc017C77F8",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "P15aVpcIngressSubnet2RouteTable466E8B0F": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "MyTestStack/P15aVpc/IngressSubnet2",
+          },
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "P15aVpc017C77F8",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "P15aVpcIngressSubnet2RouteTableAssociation1960C4F2": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "P15aVpcIngressSubnet2RouteTable466E8B0F",
+        },
+        "SubnetId": Object {
+          "Ref": "P15aVpcIngressSubnet2SubnetE64D60B4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "P15aVpcIngressSubnet2SubnetE64D60B4": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            1,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Ingress",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "MyTestStack/P15aVpc/IngressSubnet2",
+          },
+          Object {
+            "Key": "Project",
+            "Value": "P15A-Dining-By-Friends-Neptune",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "P15aVpc017C77F8",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+  },
+}
+`;
