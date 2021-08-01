@@ -5,7 +5,7 @@ import { P15aGraphQlApiStack } from "../lib/project15a-dining-by-friends-with-ne
 const createTestStack = (app: cdk.App) =>
   new P15aGraphQlApiStack(app, "MyTestStack");
 
-test("Empty Stack", () => {
+test("Snapshot Test", () => {
   const app = new cdk.App();
   // WHEN
   const stack = createTestStack(app);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Empty Stack 1`] = `
+exports[`Snapshot Test 1`] = `
 Object {
   "Outputs": Object {
     "ApiKey": Object {
@@ -500,7 +500,7 @@ Object {
             "ApiId",
           ],
         },
-        "Expires": 1659358147,
+        "Expires": 1659381932,
       },
       "Type": "AWS::AppSync::ApiKey",
     },
