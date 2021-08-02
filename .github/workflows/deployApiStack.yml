@@ -76,15 +76,10 @@ jobs:
       - name: Checkout the Repository
         uses: actions/checkout@v2
 
-      - name: Install JBang for Setting Up Java Environment
+      - name: Install JBang and Run Karate Tests
         run: |
           iwr -useb get.scoop.sh | iex
           scoop bucket add jbangdev https://github.com/jbangdev/scoop-bucket
           scoop install jbang
-          jbang --version
-
-      - name: Run Karate Tests for AppSync API Queries
-        run: jbang karate@intuit/karate test/queries.feature
-
-      - name: Run Karate Tests for AppSync API Mutations
-        run: jbang karate@intuit/karate test/mutations.feature
+          jbang karate@intuit/karate test/queries.feature
+          jbang karate@intuit/karate test/mutations.feature
