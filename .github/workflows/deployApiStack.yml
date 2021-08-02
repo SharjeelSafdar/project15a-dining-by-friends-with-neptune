@@ -69,7 +69,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_PROJECT_REGION }}
 
   Run-Karate-Tests:
-    needs: Deploy_API
+    needs: Deploy-API
     runs-on: windows-latest
 
     steps:
