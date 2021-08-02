@@ -1,7 +1,4 @@
 name: Deploy GraphQL Api with Event Driven Architecture  with ApiGateway, EventBridge and SNS
-env:
-  owner: SharjeelSafdar
-  repo: project15a-dining-by-friends-with-neptune
 
 # Controls when the action will run. Triggers the workflow on
 # 1) push event for main branch
@@ -24,13 +21,10 @@ on:
       - "logicalModelWithHackolade/**"
 
 jobs:
-  Deploy_API:
-    # The type of runner that the job will run on
+  Deploy-API:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout the Repository
         uses: actions/checkout@v2
 
@@ -62,7 +56,7 @@ jobs:
       - name: Run Tests with Jest
         run: npm run test -- -u
 
-      - name: Deploy Backend-Services-Stack to AWS CloudFormation
+      - name: Deploy DiningByFriends API Stack to AWS CloudFormation
         uses: docker://kikemnzz/automate-cdk-github-action-kmzz:v1.0.0
         with:
           cdk_version: 1.115.0
@@ -73,3 +67,23 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_PROJECT_REGION }}
+
+  Run-Karate-Tests:
+    needs: Deploy_API
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+
+      - name: Install JBang for Setting Up Java Environment
+        run: |
+          iwr -useb get.scoop.sh | iex
+          scoop bucket add jbangdev https://github.com/jbangdev/scoop-bucket
+          scoop install jbang
+
+      - name: Run Karate Tests for AppSync API Queries
+        run: jbang karate@intuit/karate test/queries.feature
+
+      - name: Run Karate Tests for AppSync API Mutations
+        run: jbang karate@intuit/karate test/mutations.feature
