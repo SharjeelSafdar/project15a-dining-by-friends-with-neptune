@@ -1,4 +1,4 @@
-name: Deploy GraphQL Api with Event Driven Architecture  with ApiGateway, EventBridge and SNS
+name: Deploy Dining-by-Friends GraphQL Api with Event Driven Architecture Using AWS
 
 # Controls when the action will run. Triggers the workflow on
 # 1) push event for main branch
