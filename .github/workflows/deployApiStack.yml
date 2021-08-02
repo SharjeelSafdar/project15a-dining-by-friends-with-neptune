@@ -81,6 +81,7 @@ jobs:
           iwr -useb get.scoop.sh | iex
           scoop bucket add jbangdev https://github.com/jbangdev/scoop-bucket
           scoop install jbang
+          jbang --version
 
       - name: Run Karate Tests for AppSync API Queries
         run: jbang karate@intuit/karate test/queries.feature
