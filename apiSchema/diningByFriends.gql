@@ -1,149 +1,552 @@
+"""
+The end user of the app who friends with other users/persons, rates/reviews restaurants and gets recommendations.
+"""
 type Person {
+  "A uuid for the person."
   id: ID!
+  "The first or given name of the person."
   firstName: String!
+  "The last or family name of the person. It is mutable."
   lastName: String!
+  "A unique and immutable name of the person."
   username: String!
+  "An immutable email address of the user."
   email: String!
+  "Label for the vertex in the graph database."
   label: String!
 }
 
+"Input type for creating a new person in the database."
 input NewPerson {
+  """
+  A unique and immutable name of the person.
+  """
   username: String!
+  """
+  An immutable email address of the user.
+  """
   email: String!
+  """
+  The first or given name of the person.
+  """
   firstName: String!
+  """
+  The last or family name of the person. It is mutable.
+  """
   lastName: String!
+  """
+  The uuid of the city the person belongs to. It is used to give the user personalized recommendations.
+  """
   cityId: ID!
 }
 
+"""
+A city entity- a city belongs to a state and contains many restaurants.
+"""
 type City {
+  """
+  A uuid for the city.
+  """
   id: ID!
+  """
+  Name of the city.
+  """
   name: String!
+  """
+  The label of the city vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+A state entity- a state contains many cities.
+"""
 type State {
+  """
+  A uuid for the state.
+  """
   id: ID!
+  """
+  Name of the state.
+  """
   name: String!
+  """
+  The label of the state vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+A cuisine entity- a restaurant serves a particular cuisine.
+"""
 type Cuisine {
+  """
+  A uuid for the cuisine entity.
+  """
   id: ID!
+  """
+  Name of the cuisine.
+  """
   name: String!
+  """
+  The label of the cuisine vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+A restaurant entity- a restaurant belongs to a particular city, serves a particular cuisine and has many reviews.
+"""
 type Restaurant {
+  """
+  A uuid for the restaurant entity.
+  """
   id: ID!
+  """
+  Name of the restaurant.
+  """
   name: String!
+  """
+  Address of the restaurant so the users/persons can physically locate the restaurant.
+  """
   address: String!
+  """
+  The label of the restaurant vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+Similar to the Restaurant type with additional fields for cuisine and average rating.
+"""
 type RestaurantWithRating {
+  """
+  A uuid for the restaurant entity.
+  """
   id: ID!
+  """
+  Name of the restaurant.
+  """
   name: String!
+  """
+  Address of the restaurant so the users/persons can physically locate the restaurant.
+  """
   address: String!
+  """
+  The label of the restaurant vertex in the graph database.
+  """
   label: String!
+  """
+  The type/name of the cuisine the restaurant serves.
+  """
   cuisine: String!
+  """
+  The average of the ratings (1-5) given by the persons/users.
+  """
   averageRating: Float!
 }
 
+"""
+The input type for creating a new restaurant in the database.
+"""
 input NewRestaurant {
+  """
+  Name of the restaurant.
+  """
   name: String!
+  """
+  Address of the restaurant so the users/persons can physically locate the restaurant.
+  """
   address: String!
+  """
+  The unique id for the city the restaurant is located in.
+  """
   cityId: ID!
+  """
+  The unique id for the cuisine the restaurant serves.
+  """
   cuisineId: ID!
 }
 
+"""
+A review entity- a review is given by a person/user to a restaurant. It consists of a rating (1-5) and some optional message/comments.
+"""
 type Review {
+  """
+  A uuid for the review entity.
+  """
   id: ID!
+  """
+  Time of writing of the review in epoch seconds.
+  """
   createdAt: Int!
+  """
+  Rating assigned to the restaurant by a person/user from 1 to 5.
+  """
   rating: Int!
+  """
+  A comment or message by the person/user.
+  """
   body: String
+  """
+  The label of the review vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+Input type for creating a new review in the database.
+"""
 input NewReview {
+  """
+  Rating assigned to the restaurant by a person/user from 1 to 5.
+  """
   rating: Int!
+  """
+  An optional comment or message by the person/user.
+  """
   body: String
+  """
+  Unique id of the person/user who is creating a new review for a particular restaurant.
+  """
   personId: ID!
+  """
+  Unique id of the restaurant the review is about.
+  """
   restaurantId: ID!
 }
 
+"""
+A review-rating entity- a person/user can give a review rating to some other user's review in the form of a thumbs up/down.
+"""
 type ReviewRating {
+  """
+  Unique id of the review-rating.
+  """
   id: ID!
+  """
+  A user can either agree or disagree with a review. A **true** means a thubs up and a **false** means a thumbs down.
+  """
   thumbsUp: Boolean!
+  """
+  Time of writing of the review rating in epoch seconds.
+  """
   reviewDate: Int!
+  """
+  The label of the review-rating vertex in the graph database.
+  """
   label: String!
 }
 
+"""
+Input type for creating a new review-rating in the database.
+"""
 input NewReviewRating {
+  """
+  A user can either agree or disagree with a review. A **true** means a thubs up and a **false** means a thumbs down.
+  """
   thumbsUp: Boolean!
+  """
+  Unique id of the person/user who is creating a new review-rating for a particular review.
+  """
   personId: ID!
+  """
+  Unique id of the review the rating is about.
+  """
   reviewId: ID!
 }
 
+"""
+Return type for the mutations which are performed asynchronously with the help of AWS EventBridge.
+"""
 type EventBridgeReponse {
+  """
+  Response from AWS EventBridge.
+  """
   result: String!
 }
 
 type Query {
-  getPerson(personId: ID!): Person
-  getFriends(personId: ID!): [Person!]
-  getFriendsOfFriends(personId: ID!): [Person!]
-  findPathBetweenPeople(person1Id: ID!, person2Id: ID!): [String]
-  highestRatedRestaurantByCuisine(
+  """
+  Get data about a person/user provided his/her unique id.
+  """
+  getPerson(
+    "The unique id of the person to get the data of."
     personId: ID!
+  ): Person
+  """
+  Get all the friends of a person with the given id.
+  """
+  getFriends(
+    "The unique id of the person to get the friends of."
+    personId: ID!
+  ): [Person!]
+  """
+  Get all the friends of friends of a person with the given id.
+  """
+  getFriendsOfFriends(
+    "The unique id of the person to get the friends of friends of."
+    personId: ID!
+  ): [Person!]
+  """
+  Find how two persons are linked. Get a list/chain of persons who indirectly complete the link between two.
+  """
+  findPathBetweenPeople(
+    "Unique id of the first person."
+    person1Id: ID!
+    "Unique id of the second person."
+    person2Id: ID!
+  ): [String]
+  """
+  Get the highest rated restaurant in the given person's city serving a particular cuisine from a given list of cuisines.
+  """
+  highestRatedRestaurantByCuisine(
+    "Unique id of the person."
+    personId: ID!
+    "List of unique ids of the cuisines."
     cuisineIds: [ID!]!
   ): RestaurantWithRating
-  highestRatedRestaurants(personId: ID!): [RestaurantWithRating!]
-  newestRestaurantReviews(restaurantId: ID!): [Review!]
-  restaurantsByFriendsRecommendations(personId: ID!): [RestaurantWithRating!]
-  restaurantsByFriendsReviewRatings(personId: ID!): [RestaurantWithRating!]
-  restaurantsRatedOrReviewedByFriendsinXDays(
+  """
+  Get a list of 10 highest rated restaurants in the given person's city.
+  """
+  highestRatedRestaurants(
+    "Unique id of the person."
     personId: ID!
-    numDays: Int! = 10
+  ): [RestaurantWithRating!]
+  """
+  Get a list of the newest reviews for a restaurants of given id.
+  """
+  newestRestaurantReviews(
+    "Unique id of the restaurant."
+    restaurantId: ID!
+  ): [Review!]
+  """
+  Get a list of 3 highest rated restaurants which have been rated by a person's friends. Average rating is calculated based on all the reviews for a particular restaurant.
+  """
+  restaurantsByFriendsRecommendations(
+    "Unique id of the person."
+    personId: ID!
+  ): [RestaurantWithRating!]
+  """
+  Get a list of 10 highest rated restaurants which have been rated by a person's friends. Average rating is calculated based on the reviews given by the person's friends only.
+  """
+  restaurantsByFriendsReviewRatings(
+    "Unique id of the person."
+    personId: ID!
+  ): [RestaurantWithRating!]
+  """
+  Get a list of all the restaurants which are directly reviewed by a person's friends in the past X days, or the friends have rated any of the reviews of the restaurant.
+  """
+  restaurantsRatedOrReviewedByFriendsinXDays(
+    "Unique id of the person."
+    personId: ID!
+    "Number of days to look for the reviews or review-ratings."
+    numDays: Int = 10
   ): [Restaurant!]
+  """
+  Get a list of all the states stored in the database.
+  """
   getAllStates: [State]
+  """
+  Get a list of all the cities stored in the database.
+  """
   getAllCities: [City]
+  """
+  Get a list of all the cuisines stored in the database.
+  """
   getAllCuisines: [Cuisine]
+  """
+  Get a list of all the restaurants stored in the database.
+  """
   getAllRestaurants: [Restaurant]
+  """
+  Get a list of all the persons stored in the database.
+  """
   getAllPersons: [Person]
+  """
+  Get a list of all the reviews stored in the database.
+  """
   getAllReviews: [Review]
+  """
+  Get a list of all the review-ratings stored in the database.
+  """
   getAllReviewRatings: [ReviewRating]
 }
 
 type Mutation {
-  addPerson(newPerson: NewPerson!): EventBridgeReponse
-  addUpdateFirstName(personId: ID!, firstName: String!): EventBridgeReponse
-  addUpdateLastName(personId: ID!, lastName: String!): EventBridgeReponse
-  deletePerson(personId: ID!): EventBridgeReponse
-  addCity(name: String!, stateId: ID!): EventBridgeReponse
-  updateCityName(cityId: ID!, newName: String!): EventBridgeReponse
-  deleteCity(cityId: ID!): EventBridgeReponse
-  addState(name: String!): EventBridgeReponse
-  updateStateName(stateId: ID!, newName: String!): EventBridgeReponse
-  deleteState(stateId: ID!): EventBridgeReponse
-  addCuisine(name: String!): EventBridgeReponse
-  updateCuisineName(cuisineId: ID!, newName: String!): EventBridgeReponse
-  deleteCuisine(cuisineId: ID!): EventBridgeReponse
-  addRestaurant(newRestaurant: NewRestaurant!): EventBridgeReponse
-  updateRestaurantName(restaurantId: ID!, newName: String!): EventBridgeReponse
-  updateRestaurantAddress(
+  """
+  Add a new person in the database.
+  """
+  addPerson(
+    "Input data for adding the new person/user."
+    newPerson: NewPerson!
+  ): EventBridgeReponse
+  """
+  Add or update the first name of an existig person/user.
+  """
+  addUpdateFirstName(
+    "Unique id of the person."
+    personId: ID!
+    "First name for the person to be added or replaced."
+    firstName: String!
+  ): EventBridgeReponse
+  """
+  Add or update the last name of an existig person/user.
+  """
+  addUpdateLastName(
+    "Unique id of the person."
+    personId: ID!
+    "Last name for the person to be added or replaced."
+    lastName: String!
+  ): EventBridgeReponse
+  """
+  Delete an existig person from the database.
+  """
+  deletePerson("Unique id of the person." personId: ID!): EventBridgeReponse
+  """
+  Add a new city in the database.
+  """
+  addCity(
+    "Name of the new city."
+    name: String!
+    "Unique id of the state the city is in. If the state doesn't exist in the database, add the state first through the addState mutation."
+    stateId: ID!
+  ): EventBridgeReponse
+  """
+  Update the name of an existig city.
+  """
+  updateCityName(
+    "Unique id of the city."
+    cityId: ID!
+    "New name for the city."
+    newName: String!
+  ): EventBridgeReponse
+  """
+  Delete an existig city from the database.
+  """
+  deleteCity("Unique id of the city." cityId: ID!): EventBridgeReponse
+  """
+  Add a new state in the database.
+  """
+  addState(
+    "Name of the new state to be added."
+    name: String!
+  ): EventBridgeReponse
+  """
+  Update the name of an existig state.
+  """
+  updateStateName(
+    "Unique id of the state."
+    stateId: ID!
+    "New name for the state."
+    newName: String!
+  ): EventBridgeReponse
+  """
+  Delete an existig state from the database.
+  """
+  deleteState("Unique id of the state." stateId: ID!): EventBridgeReponse
+  """
+  Add a new cuisine in the database.
+  """
+  addCuisine("Name for the new cuisine." name: String!): EventBridgeReponse
+  """
+  Update the name of an existig cuisine.
+  """
+  updateCuisineName(
+    "Unique id of the cuisine."
+    cuisineId: ID!
+    "New name for the cuisine."
+    newName: String!
+  ): EventBridgeReponse
+  """
+  Delete an existig cuisine from the database.
+  """
+  deleteCuisine("Unique id of the cuisine." cuisineId: ID!): EventBridgeReponse
+  """
+  Add a new restaurant in the database.
+  """
+  addRestaurant(
+    "Input data for adding the new restaurant."
+    newRestaurant: NewRestaurant!
+  ): EventBridgeReponse
+  """
+  Update the name of an existig restaurant.
+  """
+  updateRestaurantName(
+    "Unique id of the restaurant."
     restaurantId: ID!
+    "New name for the restaurant."
+    newName: String!
+  ): EventBridgeReponse
+  """
+  Update the address of an existig restaurant.
+  """
+  updateRestaurantAddress(
+    "Unique id of the restaurant."
+    restaurantId: ID!
+    "New address for the restaurant."
     newAddress: String!
   ): EventBridgeReponse
-  deleteRestaurant(restaurantId: ID): EventBridgeReponse
-  addReview(newReview: NewReview!): EventBridgeReponse
-  deleteReview(reviewId: ID!): EventBridgeReponse
-  addReviewRating(newReviewRating: NewReviewRating!): EventBridgeReponse
-  deleteReviewRating(reviewRatingId: ID!): EventBridgeReponse
-  addFriendsEdge(fromId: ID!, toId: ID!): EventBridgeReponse
-  deleteFriendsEdge(friendsEdgeId: ID!): EventBridgeReponse
+  """
+  Delete an existig restaurant from the database.
+  """
+  deleteRestaurant(
+    "Unique id of the restaurant."
+    restaurantId: ID!
+  ): EventBridgeReponse
+  """
+  Add a new review for an existig restaurant in the database.
+  """
+  addReview(
+    "Input data for adding the new review."
+    newReview: NewReview!
+  ): EventBridgeReponse
+  """
+  Delete an existig review from the database.
+  """
+  deleteReview("Unique id of the review." reviewId: ID!): EventBridgeReponse
+  """
+  Add a new review-rating for an existig review in the database.
+  """
+  addReviewRating(
+    "Input data for adding the new review-rating."
+    newReviewRating: NewReviewRating!
+  ): EventBridgeReponse
+  """
+  Delete an existig review-rating from the database.
+  """
+  deleteReviewRating(
+    "Unique id of the review-rating."
+    reviewRatingId: ID!
+  ): EventBridgeReponse
+  """
+  Add a new friendship relation/edge between two existing persons.
+  """
+  addFriendsEdge(
+    "Unique id of the person the friendship edge starts at."
+    fromId: ID!
+    "Unique id of the person the friendship edge ends at."
+    toId: ID!
+  ): EventBridgeReponse
+  """
+  Delete an existig friendship relation between two persons.
+  """
+  deleteFriendsEdge(
+    "Unique id of the friendship edge."
+    friendsEdgeId: ID!
+  ): EventBridgeReponse
 }
 
+"""
+The root type in the schema.
+"""
 type schema {
+  """
+  Root type for all the queries.
+  """
   query: Query
+  """
+  Root type for all the mutations.
+  """
   mutation: Mutation
 }
