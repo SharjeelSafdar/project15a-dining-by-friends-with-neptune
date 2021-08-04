@@ -338,7 +338,7 @@ const restaurantsByFriendsReviewRatings = async (
   restaurants = restaurants.sort((a, b) => b.averageRating - a.averageRating);
 
   console.log(
-    "Top 3 restaurant based on friends' reviews ==> ",
+    "Top 10 restaurant based on friends' reviews ==> ",
     JSON.stringify(restaurants)
   );
   return restaurants.slice(0, 10);
