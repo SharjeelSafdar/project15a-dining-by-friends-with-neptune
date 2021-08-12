@@ -15,5 +15,5 @@ This AWS CDK App deploys the backend infrastructure for the Dining by Friends Gr
 - An EventBridge rule to envoke the lambda function to perform the mutation
 
 <p align="center">
-  <img alt="Architecture Diagram" src="./P15A AWS Architecture.jpg" />
+  <img alt="Architecture Diagram" src="./P15a AWS Architecture.jpg" />
 </p>
