@@ -178,89 +178,11 @@ export class P15aGraphQlApiStack extends cdk.Stack {
       appSyncQueryLambda
     );
 
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_PERSON,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_FRIENDS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_FRIENDS_OF_FRIENDS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.FIND_PATH_BETWEEN_PEOPLE,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.HIGHEST_RATED_RESTAURANT_BY_CUISINE,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.HIGHEST_RATED_RESTAURANTS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.NEWEST_RESTAURANT_REVIEWS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_STATES,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_CITIES,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_CUISINES,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_RESTAURANTS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_PERSONS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_REVIEWS,
-    });
-
-    queryLambdaDS.createResolver({
-      typeName: "Query",
-      fieldName: QueryType.GET_ALL_REVIEW_RATINGS,
+    Object.values(QueryType).forEach(fieldName => {
+      queryLambdaDS.createResolver({
+        typeName: "Query",
+        fieldName,
+      });
     });
 
     /* ************************************************************** */
@@ -280,295 +202,66 @@ export class P15aGraphQlApiStack extends cdk.Stack {
     );
     events.EventBus.grantAllPutEvents(httpEventBridgeDS);
 
-    const addPersonArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newPerson\\\": { \\\"username\\\": \\\"$ctx.args.newPerson.username\\\", \\\"email\\\": \\\"$ctx.args.newPerson.email\\\", \\\"firstName\\\": \\\"$ctx.args.newPerson.firstName\\\", \\\"lastName\\\": \\\"$ctx.args.newPerson.lastName\\\", \\\"cityId\\\": \\\"$ctx.args.newPerson.cityId\\\" }`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_PERSON,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addPersonArgs, MutationType.ADD_PERSON)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
+    const mutationArgs = [
+      // Mutation Arguments for addPerson
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newPerson\\\": { \\\"username\\\": \\\"$ctx.args.newPerson.username\\\", \\\"email\\\": \\\"$ctx.args.newPerson.email\\\", \\\"firstName\\\": \\\"$ctx.args.newPerson.firstName\\\", \\\"lastName\\\": \\\"$ctx.args.newPerson.lastName\\\", \\\"cityId\\\": \\\"$ctx.args.newPerson.cityId\\\" }`,
+      // Mutation Arguments for addUpdateFirstName
+      `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"firstName\\\": \\\"$ctx.args.firstName\\\"`,
+      // Mutation Arguments for addUpdateLastName
+      `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"lastName\\\": \\\"$ctx.args.lastName\\\"`,
+      // Mutation Arguments for deletePerson
+      `\\\"personId\\\": \\\"$ctx.args.personId\\\"`,
+      // Mutation Arguments for addCity
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\", \\\"stateId\\\": \\\"$ctx.args.stateId\\\"`,
+      // Mutation Arguments for updateCityName
+      `\\\"cityId\\\": \\\"$ctx.args.cityId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`,
+      // Mutation Arguments for deleteCity
+      `\\\"cityId\\\": \\\"$ctx.args.cityId\\\"`,
+      // Mutation Arguments for addState
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\"`,
+      // Mutation Arguments for updateStateName
+      `\\\"stateId\\\": \\\"$ctx.args.stateId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`,
+      // Mutation Arguments for deleteState
+      `\\\"stateId\\\": \\\"$ctx.args.stateId\\\"`,
+      // Mutation Arguments for addCuisine
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\"`,
+      // Mutation Arguments for updateCuisineName
+      `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`,
+      // Mutation Arguments for deleteCuisine
+      `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\"`,
+      // Mutation Arguments for addRestaurant
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newRestaurant\\\": { \\\"name\\\": \\\"$ctx.args.newRestaurant.name\\\", \\\"address\\\": \\\"$ctx.args.newRestaurant.address\\\", \\\"cityId\\\": \\\"$ctx.args.newRestaurant.cityId\\\", \\\"cuisineId\\\": \\\"$ctx.args.newRestaurant.cuisineId\\\" }`,
+      // Mutation Arguments for updateRestaurantName
+      `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`,
+      // Mutation Arguments for updateRestaurantAddress
+      `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newAddress\\\": \\\"$ctx.args.newAddress\\\"`,
+      // Mutation Arguments for deleteRestaurant
+      `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\"`,
+      // Mutation Arguments for addReview
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"createdAt\\\": $util.time.nowEpochSeconds(), \\\"newReview\\\": { \\\"rating\\\": $ctx.args.newReview.rating, \\\"body\\\": \\\"$ctx.args.newReview.body\\\", \\\"personId\\\": \\\"$ctx.args.newReview.personId\\\", \\\"restaurantId\\\": \\\"$ctx.args.newReview.restaurantId\\\" }`,
+      // Mutation Arguments for deleteReview
+      `\\\"reviewId\\\": \\\"$ctx.args.reviewId\\\"`,
+      // Mutation Arguments for addReviewRating
+      `\\\"id\\\": \\\"$util.autoId()\\\", \\\"reviewDate\\\": $util.time.nowEpochSeconds(), \\\"newReviewRating\\\": { \\\"thumbsUp\\\": $ctx.args.newReviewRating.thumbsUp, \\\"reviewId\\\": \\\"$ctx.args.newReviewRating.reviewId\\\", \\\"personId\\\": \\\"$ctx.args.newReviewRating.personId\\\" }`,
+      // Mutation Arguments for deleteReviewRating
+      `\\\"reviewRatingId\\\": \\\"$ctx.args.reviewRatingId\\\"`,
+      // Mutation Arguments for addFriendsEdge
+      `\\\"fromId\\\": \\\"$ctx.args.fromId\\\", \\\"toId\\\": \\\"$ctx.args.toId\\\", \\\"id\\\": \\\"$util.autoId()\\\"`,
+      // Mutation Arguments for deleteFriendsEdge
+      `\\\"friendsEdgeId\\\": \\\"$ctx.args.friendsEdgeId\\\"`,
+    ];
 
-    const addUpdateFirstNameArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"firstName\\\": \\\"$ctx.args.firstName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_UPDATE_FIRST_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(
-          addUpdateFirstNameArgs,
-          MutationType.ADD_UPDATE_FIRST_NAME
-        )
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addUpdateLastNameArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\", \\\"lastName\\\": \\\"$ctx.args.lastName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_UPDATE_LAST_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(
-          addUpdateLastNameArgs,
-          MutationType.ADD_UPDATE_LAST_NAME
-        )
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deletePersonArgs = `\\\"personId\\\": \\\"$ctx.args.personId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_PERSON,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deletePersonArgs, MutationType.DELETE_PERSON)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addStateArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_STATE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addStateArgs, MutationType.ADD_STATE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const updateStateNameArgs = `\\\"stateId\\\": \\\"$ctx.args.stateId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.UPDATE_STATE_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(updateStateNameArgs, MutationType.UPDATE_STATE_NAME)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteStateArgs = `\\\"stateId\\\": \\\"$ctx.args.stateId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_STATE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteStateArgs, MutationType.DELETE_STATE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addCityArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\", \\\"stateId\\\": \\\"$ctx.args.stateId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_CITY,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addCityArgs, MutationType.ADD_CITY)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const updateCityNameArgs = `\\\"cityId\\\": \\\"$ctx.args.cityId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.UPDATE_CITY_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(updateCityNameArgs, MutationType.UPDATE_CITY_NAME)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteCityArgs = `\\\"cityId\\\": \\\"$ctx.args.cityId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_CITY,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteCityArgs, MutationType.DELETE_CITY)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addCuisineArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"name\\\": \\\"$ctx.args.name\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_CUISINE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addCuisineArgs, MutationType.ADD_CUISINE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const updateCuisineNameArgs = `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.UPDATE_CUISINE_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(updateCuisineNameArgs, MutationType.UPDATE_CUISINE_NAME)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteCuisineArgs = `\\\"cuisineId\\\": \\\"$ctx.args.cuisineId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_CUISINE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteCuisineArgs, MutationType.DELETE_CUISINE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addRestaurantArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"newRestaurant\\\": { \\\"name\\\": \\\"$ctx.args.newRestaurant.name\\\", \\\"address\\\": \\\"$ctx.args.newRestaurant.address\\\", \\\"cityId\\\": \\\"$ctx.args.newRestaurant.cityId\\\", \\\"cuisineId\\\": \\\"$ctx.args.newRestaurant.cuisineId\\\" }`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_RESTAURANT,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addRestaurantArgs, MutationType.ADD_RESTAURANT)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const updateRestaurantNameArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newName\\\": \\\"$ctx.args.newName\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.UPDATE_RESTAURANT_NAME,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(
-          updateRestaurantNameArgs,
-          MutationType.UPDATE_RESTAURANT_NAME
-        )
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const updateRestaurantAddressArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\", \\\"newAddress\\\": \\\"$ctx.args.newAddress\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.UPDATE_RESTAURANT_ADDRESS,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(
-          updateRestaurantAddressArgs,
-          MutationType.UPDATE_RESTAURANT_ADDRESS
-        )
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteRestaurantArgs = `\\\"restaurantId\\\": \\\"$ctx.args.restaurantId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_RESTAURANT,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteRestaurantArgs, MutationType.DELETE_RESTAURANT)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addReviewArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"createdAt\\\": $util.time.nowEpochSeconds(), \\\"newReview\\\": { \\\"rating\\\": $ctx.args.newReview.rating, \\\"body\\\": \\\"$ctx.args.newReview.body\\\", \\\"personId\\\": \\\"$ctx.args.newReview.personId\\\", \\\"restaurantId\\\": \\\"$ctx.args.newReview.restaurantId\\\" }`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_REVIEW,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addReviewArgs, MutationType.ADD_REVIEW)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteReviewArgs = `\\\"reviewId\\\": \\\"$ctx.args.reviewId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_REVIEW,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteReviewArgs, MutationType.DELETE_REVIEW)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addReviewRatingArgs = `\\\"id\\\": \\\"$util.autoId()\\\", \\\"reviewDate\\\": $util.time.nowEpochSeconds(), \\\"newReviewRating\\\": { \\\"thumbsUp\\\": $ctx.args.newReviewRating.thumbsUp, \\\"reviewId\\\": \\\"$ctx.args.newReviewRating.reviewId\\\", \\\"personId\\\": \\\"$ctx.args.newReviewRating.personId\\\" }`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_REVIEW_RATING,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addReviewRatingArgs, MutationType.ADD_REVIEW_RATING)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteReviewRatingArgs = `\\\"reviewRatingId\\\": \\\"$ctx.args.reviewRatingId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_REVIEW_RATING,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(
-          deleteReviewRatingArgs,
-          MutationType.DELETE_REVIEW_RATING
-        )
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const addFriendsEdgeArgs = `\\\"fromId\\\": \\\"$ctx.args.fromId\\\", \\\"toId\\\": \\\"$ctx.args.toId\\\", \\\"id\\\": \\\"$util.autoId()\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.ADD_FRIENDS_EDGE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(addFriendsEdgeArgs, MutationType.ADD_FRIENDS_EDGE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
-    });
-
-    const deleteFriendsEdgeArgs = `\\\"friendsEdgeId\\\": \\\"$ctx.args.friendsEdgeId\\\"`;
-    httpEventBridgeDS.createResolver({
-      typeName: "Mutation",
-      fieldName: MutationType.DELETE_FRIENDS_EDGE,
-      requestMappingTemplate: appsync.MappingTemplate.fromString(
-        requestTemplate(deleteFriendsEdgeArgs, MutationType.DELETE_FRIENDS_EDGE)
-      ),
-      responseMappingTemplate: appsync.MappingTemplate.fromString(
-        responseTemplate()
-      ),
+    Object.values(MutationType).forEach((fieldName, index) => {
+      httpEventBridgeDS.createResolver({
+        typeName: "Mutation",
+        fieldName,
+        requestMappingTemplate: appsync.MappingTemplate.fromString(
+          requestTemplate(mutationArgs[index], fieldName)
+        ),
+        responseMappingTemplate: appsync.MappingTemplate.fromString(
+          responseTemplate()
+        ),
+      });
     });
 
     /* ************************************************************** */
@@ -604,31 +297,7 @@ export class P15aGraphQlApiStack extends cdk.Stack {
         "Rule to invoke the mutation lambda when a mutation is run in AppSync",
       eventPattern: {
         source: [EVENT_SOURCE],
-        detailType: [
-          MutationType.ADD_PERSON,
-          MutationType.ADD_UPDATE_FIRST_NAME,
-          MutationType.ADD_UPDATE_LAST_NAME,
-          MutationType.DELETE_PERSON,
-          MutationType.ADD_CITY,
-          MutationType.UPDATE_CITY_NAME,
-          MutationType.DELETE_CITY,
-          MutationType.ADD_STATE,
-          MutationType.UPDATE_STATE_NAME,
-          MutationType.DELETE_STATE,
-          MutationType.ADD_CUISINE,
-          MutationType.UPDATE_CUISINE_NAME,
-          MutationType.DELETE_CUISINE,
-          MutationType.ADD_RESTAURANT,
-          MutationType.UPDATE_RESTAURANT_NAME,
-          MutationType.UPDATE_RESTAURANT_ADDRESS,
-          MutationType.DELETE_RESTAURANT,
-          MutationType.ADD_REVIEW,
-          MutationType.DELETE_REVIEW,
-          MutationType.ADD_REVIEW_RATING,
-          MutationType.DELETE_REVIEW_RATING,
-          MutationType.ADD_FRIENDS_EDGE,
-          MutationType.DELETE_FRIENDS_EDGE,
-        ],
+        detailType: Object.values(MutationType),
       },
       targets: [new eventTargets.LambdaFunction(appSyncMutationLambda)],
     });
@@ -637,48 +306,49 @@ export class P15aGraphQlApiStack extends cdk.Stack {
   }
 }
 
-enum QueryType {
-  GET_PERSON = "getPerson",
-  GET_FRIENDS = "getFriends",
-  GET_FRIENDS_OF_FRIENDS = "getFriendsOfFriends",
-  FIND_PATH_BETWEEN_PEOPLE = "findPathBetweenPeople",
-  HIGHEST_RATED_RESTAURANT_BY_CUISINE = "highestRatedRestaurantByCuisine",
-  HIGHEST_RATED_RESTAURANTS = "highestRatedRestaurants",
-  NEWEST_RESTAURANT_REVIEWS = "newestRestaurantReviews",
-  RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS = "restaurantsByFriendsRecommendations",
-  RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS = "restaurantsByFriendsReviewRatings",
-  RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS = "restaurantsRatedOrReviewedByFriendsinXDays",
-  GET_ALL_STATES = "getAllStates",
-  GET_ALL_CITIES = "getAllCities",
-  GET_ALL_CUISINES = "getAllCuisines",
-  GET_ALL_RESTAURANTS = "getAllRestaurants",
-  GET_ALL_PERSONS = "getAllPersons",
-  GET_ALL_REVIEWS = "getAllReviews",
-  GET_ALL_REVIEW_RATINGS = "getAllReviewRatings",
-}
+const QueryType = {
+  GET_PERSON: "getPerson",
+  GET_FRIENDS: "getFriends",
+  GET_FRIENDS_OF_FRIENDS: "getFriendsOfFriends",
+  FIND_PATH_BETWEEN_PEOPLE: "findPathBetweenPeople",
+  HIGHEST_RATED_RESTAURANT_BY_CUISINE: "highestRatedRestaurantByCuisine",
+  HIGHEST_RATED_RESTAURANTS: "highestRatedRestaurants",
+  NEWEST_RESTAURANT_REVIEWS: "newestRestaurantReviews",
+  RESTAURANTS_BY_FRIENDS_RECOMMENDATIONS: "restaurantsByFriendsRecommendations",
+  RESTAURANTS_BY_FRIENDS_REVIEW_RATINGS: "restaurantsByFriendsReviewRatings",
+  RESTAURANTS_RATED_OR_REVIEWED_BY_FRIENDS_IN_X_DAYS:
+    "restaurantsRatedOrReviewedByFriendsinXDays",
+  GET_ALL_STATES: "getAllStates",
+  GET_ALL_CITIES: "getAllCities",
+  GET_ALL_CUISINES: "getAllCuisines",
+  GET_ALL_RESTAURANTS: "getAllRestaurants",
+  GET_ALL_PERSONS: "getAllPersons",
+  GET_ALL_REVIEWS: "getAllReviews",
+  GET_ALL_REVIEW_RATINGS: "getAllReviewRatings",
+};
 
-enum MutationType {
-  ADD_PERSON = "addPerson",
-  ADD_UPDATE_FIRST_NAME = "addUpdateFirstName",
-  ADD_UPDATE_LAST_NAME = "addUpdateLastName",
-  DELETE_PERSON = "deletePerson",
-  ADD_CITY = "addCity",
-  UPDATE_CITY_NAME = "updateCityName",
-  DELETE_CITY = "deleteCity",
-  ADD_STATE = "addState",
-  UPDATE_STATE_NAME = "updateStateName",
-  DELETE_STATE = "deleteState",
-  ADD_CUISINE = "addCuisine",
-  UPDATE_CUISINE_NAME = "updateCuisineName",
-  DELETE_CUISINE = "deleteCuisine",
-  ADD_RESTAURANT = "addRestaurant",
-  UPDATE_RESTAURANT_NAME = "updateRestaurantName",
-  UPDATE_RESTAURANT_ADDRESS = "updateRestaurantAddress",
-  DELETE_RESTAURANT = "deleteRestaurant",
-  ADD_REVIEW = "addReview",
-  DELETE_REVIEW = "deleteReview",
-  ADD_REVIEW_RATING = "addReviewRating",
-  DELETE_REVIEW_RATING = "deleteReviewRating",
-  ADD_FRIENDS_EDGE = "addFriendsEdge",
-  DELETE_FRIENDS_EDGE = "deleteFriendsEdge",
-}
+const MutationType = {
+  ADD_PERSON: "addPerson",
+  ADD_UPDATE_FIRST_NAME: "addUpdateFirstName",
+  ADD_UPDATE_LAST_NAME: "addUpdateLastName",
+  DELETE_PERSON: "deletePerson",
+  ADD_CITY: "addCity",
+  UPDATE_CITY_NAME: "updateCityName",
+  DELETE_CITY: "deleteCity",
+  ADD_STATE: "addState",
+  UPDATE_STATE_NAME: "updateStateName",
+  DELETE_STATE: "deleteState",
+  ADD_CUISINE: "addCuisine",
+  UPDATE_CUISINE_NAME: "updateCuisineName",
+  DELETE_CUISINE: "deleteCuisine",
+  ADD_RESTAURANT: "addRestaurant",
+  UPDATE_RESTAURANT_NAME: "updateRestaurantName",
+  UPDATE_RESTAURANT_ADDRESS: "updateRestaurantAddress",
+  DELETE_RESTAURANT: "deleteRestaurant",
+  ADD_REVIEW: "addReview",
+  DELETE_REVIEW: "deleteReview",
+  ADD_REVIEW_RATING: "addReviewRating",
+  DELETE_REVIEW_RATING: "deleteReviewRating",
+  ADD_FRIENDS_EDGE: "addFriendsEdge",
+  DELETE_FRIENDS_EDGE: "deleteFriendsEdge",
+};
