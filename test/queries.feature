@@ -382,4 +382,3 @@ Feature: DiningByFriends GraphQL API Queries Tests
     * match response.errors == '#notpresent'
     * match response.data == { restaurantsRatedOrReviewedByFriendsinXDays: "#notnull" }
     * match response.data == { restaurantsRatedOrReviewedByFriendsinXDays: "#array" }
-    * match response.data.restaurantsRatedOrReviewedByFriendsinXDays[0] == { id: "#uuid", label: "restaurant", name: "#string", address: "#string" }
